@@ -17,8 +17,8 @@ public class Recensement {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "recencement_id", nullable = false)
-    private Long recencementId;
+    @Column(name = "recensement_id", nullable = false)
+    private Long recensementId;
     @Basic
     @Column(name = "recensement_date", nullable = false, length = 45)
     private Date recensementDate;
@@ -27,7 +27,7 @@ public class Recensement {
     private int recensementNombre;
     @Basic
     @Column(name = "recencement_pv", nullable = false, length = 45)
-    private String recencementPV;
+    private String recensementPV;
 
     @OneToMany(mappedBy = "recensement", fetch = FetchType.LAZY)
     private Set<Maison> maisons = new HashSet<>();
@@ -36,7 +36,7 @@ public class Recensement {
     public Recensement(Date recensementDate, int recensementNombre, String recencementPV) {
         this.recensementDate = recensementDate;
         this.recensementNombre = recensementNombre;
-        this.recencementPV = recencementPV;
+        this.recensementPV = recencementPV;
     }
 
     @Override
@@ -44,21 +44,21 @@ public class Recensement {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Recensement that = (Recensement) o;
-        return recensementNombre == that.recensementNombre && recencementId.equals(that.recencementId) && recensementDate.equals(that.recensementDate) && Objects.equals(recencementPV, that.recencementPV);
+        return recensementNombre == that.recensementNombre && recensementId.equals(that.recensementId) && recensementDate.equals(that.recensementDate) && Objects.equals(recensementPV, that.recensementPV);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(recencementId, recensementDate, recensementNombre, recencementPV);
+        return Objects.hash(recensementId, recensementDate, recensementNombre, recensementPV);
     }
 
     @Override
     public String toString() {
         return "Recensement{" +
-                "recencementId=" + recencementId +
+                "recencementId=" + recensementId +
                 ", recensementDate=" + recensementDate +
                 ", recensementNombre=" + recensementNombre +
-                ", recencementPV='" + recencementPV + '\'' +
+                ", recencementPV='" + recensementPV + '\'' +
                 ", maisons=" + maisons +
                 '}';
     }
