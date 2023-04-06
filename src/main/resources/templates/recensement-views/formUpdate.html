@@ -10,7 +10,7 @@
         <form class="form-control" th:object = "${recensement}" method="POST" enctype="multipart/form-data" th:action="@{/recensements/update/{id}(id=${recensement.recensementId})}">
             <div class="mb-3 mt-3">
                 <label for="recensementDate" class="form-label date">Date </label>
-                <input id="recensementDate" type="Date" name="recensementDate" class="form-control"
+                <input id="recensementDate" type="Date" name="recensementDate" class="form-control" th:value="${#dates.format(recensement.recensementDate, 'yyyy-MM-dd')}"
                        th:field="*{recensementDate}" required>
             </div>
             <div class="mb-3 mt-3">

@@ -15,6 +15,7 @@ import java.util.List;
 import java.util.Set;
 
 
+@Component
 public class MyRunner implements CommandLineRunner {
 
     @Autowired
