@@ -37,13 +37,21 @@ public class Maison {
     private int nombreFamille;
 
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "recensement_id",referencedColumnName = "recensement_id",nullable = false)
     private Recensement recensement;
 
     @OneToMany(mappedBy = "maison", fetch = FetchType.LAZY)
     private Set<Beneficiaire> beneficiaires = new HashSet<>();
 
+    public Maison(String proprietaire, String boulevard, int maisonRue, int maisonNumero, int nombreFamille, Recensement recensement) {
+        this.proprietaire = proprietaire;
+        this.boulevard = boulevard;
+        this.maisonRue = maisonRue;
+        this.maisonNumero = maisonNumero;
+        this.nombreFamille = nombreFamille;
+        this.recensement = recensement;
+    }
 
     @Override
     public boolean equals(Object o) {

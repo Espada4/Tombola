@@ -25,7 +25,7 @@ public class Cloture {
     @Column(name = "pv_cloture", nullable = false, length = 40)
     private String pvCloture;
 
-    @OneToMany(mappedBy = "cloture", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "cloture", fetch = FetchType.LAZY, cascade = CascadeType.MERGE)
     private Set<Beneficiaire> beneficiaires = new HashSet<>();
 
     public Cloture(Date clotureDate, String pvCloture, Set<Beneficiaire> beneficiaires) {

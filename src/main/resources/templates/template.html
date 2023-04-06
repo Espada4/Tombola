@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" type="text/css" href="/webjars/bootstrap/5.2.3/css/bootstrap.min.css">
+    <script src="/webjars/bootstrap/5.2.3/js/bootstrap.bundle.js"></script>
+</head>
+<body>
+<nav class="navbar navbar-expand-sm navbar-dark bg-dark">
+    <div class="container-fluid">
+
+        <a class="navbar-brand" th:href="@{/}">Accueil</a>
+        <div class="collapse navbar-collapse" id="mynavbar">
+            <ul class="navbar-nav me-auto text-center">
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">Recensements</a>
+                    <ul class="dropdown-menu">
+                        <li><a class="dropdown-item" th:href="@{/recensements/index}">Consulter</a></li>
+                        <li><a class="dropdown-item" th:href="@{/recensements/formCreate}">Nouveau Recensement</a></li>
+                    </ul>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">Tirages</a>
+                    <ul class="dropdown-menu">
+                        <li><a class="dropdown-item" th:href="@{/tirages/index}">Consulter</a></li>
+                        <li><a class="dropdown-item" th:href="@{/tirages/formCreate}">Nouveau Tirage</a></li>
+                    </ul>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">Maisons</a>
+                    <ul class="dropdown-menu">
+                        <li><a class="dropdown-item" th:href="@{/maisons/index}">Rechercher</a></li>
+                        <li><a class="dropdown-item" th:href="@{/maisons/formCreate}">Nouvelle Maison</a></li>
+                    </ul>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">Beneficiaires</a>
+                    <ul class="dropdown-menu">
+                        <li><a class="dropdown-item" th:href="@{/beneficiaires/index}">Rechercher</a></li>
+                        <li><a class="dropdown-item" th:href="@{/beneficiaires/formCreate}">Nouveau Beneficiaire</a></li>
+
+                    </ul>
+                </li>
+
+            </ul>
+        </div>
+    </div>
+</nav>
+<section layout:fragment="content1">
+        Hello everybody
+</section>
+</body>
+</html>

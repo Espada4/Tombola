@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="template">
+<head>
+    <title>tirage</title>
+</head>
+<body>
+<div layout:fragment="content1">
+    <div class="container mt-3">
+        <div class="card">
+            <div class="card-header">Liste des Tirages</div>
+            <div class="card-body">
+
+                <table class="table">
+                    <thead>
+                    <tr class="text-center">
+
+                        <th>Tirage ID</th>
+                        <th>Date</th>
+                        <th>Nombre d'appartements</th>
+                        <th>PV</th>
+
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr class="text-center" th:each="tirage:${listTirages}">
+                        <td th:text="${tirage.tirageId}"></td>
+                        <td th:text="${tirage.dateTirage}"></td>
+                        <td th:text="${tirage.nombreAppartement}"></td>
+                        <td th:text="${tirage.pvTirage}?:'a renseigner'"></td>
+                        <td>
+                            <a class="btn btn-danger" onclick="return confirm('Are you sure')"
+                               th:href="@{/tirage/delete(tirageId=${tirage.tirageId}, keyword=${keyword})}">Delete</a>
+
+                            <a class="btn btn-success"
+                               th:href="@{/tirage/formUpdate(tirageId=${tirage.tirageId})}">Update</a>
+                        </td>
+
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

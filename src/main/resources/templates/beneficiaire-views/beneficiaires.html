@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="template">
+<head>
+    <title>beneficiaires</title>
+</head>
+<body>
+<div layout:fragment="content1">
+    <div class="container mt-3">
+        <div class="card">
+            <div class="card-header">Liste des beneficiaires</div>
+            <div class="card-body">
+                <div class="mb-3">
+                        <form method="get" th:action="@{index}">
+                            <label>CNIE</label>
+                            <input type="text" name="keyword" th:value="${keyword}">
+                            <button type="submit" class="btn btn-primary">Rechercher</button>
+                        </form>
+                </div>
+                <table class="table table-striped table-bordered">
+                    <thead class="table-dark">
+                    <tr class="text-center">
+                        <th>beneficiaire ID</th>
+                        <th>CNIE</th>
+                        <th>Nom</th>
+                        <th>Situation Familiale</th>
+                        <th>Nombre D'enfant</th>
+                        <th>Situation Resident</th>
+                        <th>Action</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr class="text-center" th:each="beneficiaire:${listBeneficiaires}">
+                        <td th:text="${beneficiaire.beneficiaireId}"></td>
+                        <td th:text="${beneficiaire.cin}"></td>
+                        <td th:text="${beneficiaire.prenom}+' '+${beneficiaire.nom}"></td>
+                        <td th:text="${beneficiaire.situationFamiliale}"></td>
+                        <td th:text="${beneficiaire.nombreEnfant}"></td>
+                        <td th:text="${beneficiaire.situationResident}"></td>
+                        <td>
+                            <a class="btn btn-success"
+                               th:href="@{/beneficiaires/formUpdate(beneficiaireId=${beneficiaire.beneficiaireId})}">Modifier</a>
+                            <a class="btn btn-danger" onclick="return confirm('Are you sure')"
+                               th:href="@{/beneficiaires/delete(beneficiaireId=${beneficiaire.beneficiaireId}, keyword=${keyword})}">Supprimer</a>
+                        </td>
+
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

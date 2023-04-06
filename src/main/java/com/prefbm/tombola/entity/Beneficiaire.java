@@ -52,18 +52,19 @@ public class Beneficiaire {
     @Column(name = "observations", nullable = true, length = 100)
     private String Observations;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "maison_id",referencedColumnName = "maison_id",nullable = false)
     private Maison maison;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "cloture_id",referencedColumnName = "cloture_id",nullable = true)
     private Cloture cloture;
 
     @OneToMany(mappedBy = "beneficiaire", fetch = FetchType.LAZY)
     private Set<Participation> participations = new HashSet<>();
 
-    public Beneficiaire(String prenom, String nom, String situationFamiliale, int nombreEnfant, String situationResident, String typeResidence, Maison maison) {
+    public Beneficiaire(String cin,String prenom, String nom, String situationFamiliale, int nombreEnfant, String situationResident, String typeResidence, Maison maison) {
+        this.cin = cin;
         this.prenom = prenom;
         this.nom = nom;
         this.situationFamiliale = situationFamiliale;
@@ -84,5 +85,22 @@ public class Beneficiaire {
     @Override
     public int hashCode() {
         return Objects.hash(beneficiaireId, cin, prenom, nom, situationFamiliale, nombreEnfant, situationResident, typeResidence, etage);
+    }
+
+    @Override
+    public String toString() {
+        return "Beneficiaire{" +
+                "beneficiaireId=" + beneficiaireId +
+                ", cin='" + cin + '\'' +
+                ", prenom='" + prenom + '\'' +
+                ", nom='" + nom + '\'' +
+                ", situationFamiliale='" + situationFamiliale + '\'' +
+                ", nombreEnfant=" + nombreEnfant +
+                ", situationResident='" + situationResident + '\'' +
+                ", typeResidence='" + typeResidence + '\'' +
+                ", etage='" + etage + '\'' +
+                ", Observations='" + Observations + '\'' +
+                ", maison=" + maison.getMaisonID() +
+                '}';
     }
 }

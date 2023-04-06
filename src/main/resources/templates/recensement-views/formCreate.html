@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="template">
+<head>
+    <meta charset="UTF-8">
+    <title>Creer un recensement</title>
+</head>
+<body>
+<div layout:fragment="content1">
+    <div class="col-md-6 offset-3 mt-3">
+        <form class="form-control" th:object = "${recensement}" method="POST" enctype="multipart/form-data" th:action="@{/recensements/save}">
+            <div class="mb-3 mt-3">
+                <label for="recensementDate" class="form-label">Date </label>
+                <input id="recensementDate" type="Date" name="recensementDate" class="form-control"
+                       th:field="${recensement.recensementDate}" required>
+            </div>
+            <div class="mb-3 mt-3">
+                <label for="recensementNombre" class="form-label">Nombre Recensé:</label>
+                <input id="recensementNombre" type="text" name="recensementNombre" class="form-control"
+                       th:field="${recensement.recensementNombre}" required>
+            </div>
+            <div class="mb-3 mt-3">
+                <label class="form-label">Procès Verbal:</label>
+                <input type="file" name="file" class="form-control">
+            </div>
+
+            <button type="submit" class="btn btn-primary">Enregister</button>
+        </form>
+    </div>
+
+</div>
+</body>
+</html>

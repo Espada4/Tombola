@@ -25,17 +25,16 @@ public class Tirage {
     @Column(name = "nombre_appartement", nullable = true)
     private int nombreAppartement;
     @Basic
-    @Column(name = "pv_tirage", nullable = false, length = 40)
+    @Column(name = "pv_tirage", nullable = true, length = 40)
     private String pvTirage;
 
     @OneToMany(mappedBy = "tirage", fetch = FetchType.LAZY)
     private Set<Participation> participations = new HashSet<>();
 
 
-    public Tirage(Date dateTirage, int nombreAppartement, String pvTirage) {
+    public Tirage(Date dateTirage, int nombreAppartement) {
         this.dateTirage = dateTirage;
         this.nombreAppartement = nombreAppartement;
-        this.pvTirage = pvTirage;
     }
 
     @Override

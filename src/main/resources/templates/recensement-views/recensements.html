@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="template">
+<head>
+    <title>Recensement</title>
+</head>
+<body>
+<div layout:fragment="content1">
+    <div class="container mt-3">
+        <div class="card">
+            <div class="card-header">Liste des Recensement</div>
+            <div class="card-body">
+
+                <table class="table">
+                    <thead>
+                    <tr class="text-center">
+                        <th>Recensement ID</th>
+                        <th>Date</th>
+                        <th>Nombre recensé</th>
+                        <th>Procès Verbal</th>
+                        <th>Action</th>
+
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr class="text-center" th:each="recensement:${listRecensements}">
+                        <td th:text="${recensement.recensementId}"></td>
+                        <td th:text="${recensement.recensementDate}"></td>
+                        <td th:text="${recensement.recensementNombre}"></td>
+                        <td>
+                                <a th:href="@{/recensements/download/{id}/{fileName}(id=${recensement.recensementId},fileName=${recensement.recensementPV})}" th:text ="${recensement.recensementPV}" > </a>
+                        </td>
+                        <td>
+                            <a class="btn btn-success"
+                               th:href="@{/recensements/formUpdate(recensementId=${recensement.recensementId})}">Update</a>
+                            <a class="btn btn-danger" onclick="return confirm('Are you sure')"
+                               th:href="@{/recensements/delete(recensementId=${recensement.recensementId})}">Delete</a>
+
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>
