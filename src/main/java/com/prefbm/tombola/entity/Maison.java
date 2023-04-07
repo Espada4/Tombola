@@ -23,9 +23,6 @@ public class Maison {
     private String proprietaire;
 
     @Basic
-    @Column(name = "boulevard", nullable = false, length = 60)
-    private String boulevard;
-    @Basic
     @Column(name = "maison_rue", nullable = false)
     private int maisonRue;
     @Basic
@@ -41,12 +38,11 @@ public class Maison {
     @JoinColumn(name = "recensement_id",referencedColumnName = "recensement_id",nullable = false)
     private Recensement recensement;
 
-    @OneToMany(mappedBy = "maison", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "maison", fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)
     private Set<Beneficiaire> beneficiaires = new HashSet<>();
 
-    public Maison(String proprietaire, String boulevard, int maisonRue, int maisonNumero, int nombreFamille, Recensement recensement) {
+    public Maison(String proprietaire, int maisonRue, int maisonNumero, int nombreFamille, Recensement recensement) {
         this.proprietaire = proprietaire;
-        this.boulevard = boulevard;
         this.maisonRue = maisonRue;
         this.maisonNumero = maisonNumero;
         this.nombreFamille = nombreFamille;
@@ -58,12 +54,12 @@ public class Maison {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Maison maison = (Maison) o;
-        return maisonRue == maison.maisonRue && maisonNumero == maison.maisonNumero && maisonID.equals(maison.maisonID) && proprietaire.equals(maison.proprietaire) && boulevard.equals(maison.boulevard) && recensement.equals(maison.recensement);
+        return maisonRue == maison.maisonRue && maisonNumero == maison.maisonNumero && maisonID.equals(maison.maisonID) && proprietaire.equals(maison.proprietaire)  && recensement.equals(maison.recensement);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(maisonID, proprietaire, boulevard, maisonRue, maisonNumero, recensement);
+        return Objects.hash(maisonID, proprietaire, maisonRue, maisonNumero, recensement);
     }
 
     @Override
@@ -71,7 +67,6 @@ public class Maison {
         return "Maison{" +
                 "maisonID=" + maisonID +
                 ", proprietaire='" + proprietaire + '\'' +
-                ", boulevard='" + boulevard + '\'' +
                 ", maisonRue=" + maisonRue +
                 ", maisonNumero=" + maisonNumero +
                 ", recensement=" + recensement +

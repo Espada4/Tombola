@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="template">
+<head>
+    <meta charset="UTF-8">
+    <title>Creer un Tirage</title>
+</head>
+<body>
+<div layout:fragment="content1">
+    <div class="col-md-6 offset-3 mt-3">
+        <form class="form-control" th:object = "${tirage}" method="POST" enctype="multipart/form-data" th:action="@{/tirages/update/{id}(id=${tirage.tirageId})}">
+
+
+            <div class="mb-3 mt-3">
+                <label for="dateTirage" class="form-label">Date </label>
+                <input id="dateTirage" type="Date" name="dateTirage" class="form-control" th:value="${#dates.format(tirage.dateTirage, 'yyyy-MM-dd')}"
+                       th:field="${tirage.dateTirage}" required>
+            </div>
+            <div class="mb-3 mt-3">
+                <label for="nombreAppartement" class="form-label">Nombre d'Appartements:</label>
+                <input id="nombreAppartement" type="text" name="nombreAppartement" class="form-control"
+                       th:field="${tirage.nombreAppartement}" required>
+            </div>
+            <div class="mb-3 mt-3">
+                <label class="form-label">Procès Verbal:</label>
+                <input type="file" name="file" class="form-control">
+            </div>
+
+            <button type="submit" class="btn btn-primary">Modifier</button>
+        </form>
+    </div>
+
+</div>
+</body>
+</html>

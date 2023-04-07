@@ -15,7 +15,7 @@ import java.util.List;
 import java.util.Set;
 
 
-@Component
+//@Component
 public class MyRunner implements CommandLineRunner {
 
     @Autowired
@@ -37,11 +37,11 @@ public class MyRunner implements CommandLineRunner {
     @Override
     public void run(String... args) throws Exception {
 
-        Recensement recensement = new Recensement(new Date(),45,"pvRecencement1");
+        Recensement recensement = new Recensement("Ghandi",new Date(),45,"pvRecencement1");
         recensementRepository.save(recensement);
-        Maison maison1= new Maison("Wlad lmekki","abdkrim khatabi",3,127,3,recensement);
-        Maison maison2= new Maison("waratati","Ghandi",5,245,3,recensement);
-        Maison maison3= new Maison("waratatoh","Derb sultan",1,13,3,recensement);
+        Maison maison1= new Maison("Wlad lmekki",3,127,3,recensement);
+        Maison maison2= new Maison("waratati",5,245,3,recensement);
+        Maison maison3= new Maison("waratatoh",1,13,3,recensement);
         recensement.getMaisons().add(maison1);
         //Save maison
         maisonRepository.save(maison1);

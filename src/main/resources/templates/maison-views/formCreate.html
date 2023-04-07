@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="template">
+<head>
+    <meta charset="UTF-8">
+    <title>Créer une Maison</title>
+</head>
+<body>
+<div layout:fragment="content1">
+    <div class="col-md-6 offset-3 mt-3">
+        <form class="form-control" th:object = "${maison}" method="POST" th:action="@{/maisons/save}">
+            <div class="mb-3 mt-3">
+                <label for="proprietaire" class="form-label">Proprietaire </label>
+                <input id="proprietaire" type="text" name="proprietaire" class="form-control"
+                       th:field="${maison.proprietaire}" required>
+            </div>
+            <div class="mb-3 mt-3">
+                <label for="maisonRue" class="form-label">Numéro de Rue :</label>
+                <input id="maisonRue" type="text" name="maisonRue" class="form-control"
+                       th:field="${maison.maisonRue}" required>
+            </div>
+
+            <div class="mb-3 mt-3">
+                <label for="maisonNumero" class="form-label">Numéro de Maison:</label>
+                <input id="maisonNumero" type="text" name="maisonNumero" class="form-control"
+                       th:field="${maison.maisonNumero}" required>
+            </div>
+            <div class="mb-3 mt-3">
+                <label for="nombreFamille" class="form-label">Nombre Famille:</label>
+                <input id="nombreFamille" type="text" name="nombreFamille" class="form-control"
+                       th:field="${maison.nombreFamille}" required>
+            </div>
+
+            <button type="submit" class="btn btn-primary">Enregister</button>
+        </form>
+    </div>
+
+</div>
+</body>
+</html>

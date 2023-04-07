@@ -8,6 +8,12 @@
 <div layout:fragment="content1">
     <div class="col-md-6 offset-3 mt-3">
         <form class="form-control" th:object = "${recensement}" method="POST" enctype="multipart/form-data" th:action="@{/recensements/save}">
+
+            <div class="mb-3 mt-3">
+                <label for="boulevard" class="form-label">Boulevard:</label>
+                <input id="boulevard" type="text" name="boulevard" class="form-control"
+                       th:field="${recensement.boulevard}" required>
+            </div>
             <div class="mb-3 mt-3">
                 <label for="recensementDate" class="form-label">Date </label>
                 <input id="recensementDate" type="Date" name="recensementDate" class="form-control"

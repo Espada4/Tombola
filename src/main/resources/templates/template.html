@@ -13,26 +13,14 @@
         <a class="navbar-brand" th:href="@{/}">Accueil</a>
         <div class="collapse navbar-collapse" id="mynavbar">
             <ul class="navbar-nav me-auto text-center">
-                <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">Recensements</a>
-                    <ul class="dropdown-menu">
-                        <li><a class="dropdown-item" th:href="@{/recensements/index}">Consulter</a></li>
-                        <li><a class="dropdown-item" th:href="@{/recensements/formCreate}">Nouveau Recensement</a></li>
-                    </ul>
+                <li class="nav-item">
+                    <a class="nav-link" th:href="@{/recensements/index}" role="button" >Recensements</a>
                 </li>
                 <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">Tirages</a>
-                    <ul class="dropdown-menu">
-                        <li><a class="dropdown-item" th:href="@{/tirages/index}">Consulter</a></li>
-                        <li><a class="dropdown-item" th:href="@{/tirages/formCreate}">Nouveau Tirage</a></li>
-                    </ul>
+                    <a class="nav-link" th:href="@{/tirages/index}" role="button" d>Tirages</a>
                 </li>
                 <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">Maisons</a>
-                    <ul class="dropdown-menu">
-                        <li><a class="dropdown-item" th:href="@{/maisons/index}">Rechercher</a></li>
-                        <li><a class="dropdown-item" th:href="@{/maisons/formCreate}">Nouvelle Maison</a></li>
-                    </ul>
+                    <a class="nav-link" th:href="@{/maisons/index}" role="button" >Maisons</a>
                 </li>
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">Beneficiaires</a>

@@ -23,6 +23,10 @@ public class Recensement {
     @Column(name = "recensement_id", nullable = false)
     private Long recensementId;
 
+    @Basic
+    @Column(name = "boulevard", nullable = false, length = 60)
+    private String boulevard;
+
 
     @Basic
     @Column(name = "recensement_date", nullable = false, length = 45)
@@ -39,31 +43,32 @@ public class Recensement {
     private Set<Maison> maisons = new HashSet<>();
 
 
-    public Recensement(Date recensementDate, int recensementNombre, String recencementPV) {
-        /*DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
-        this.recensementDate = LocalDate.parse(dateString, formatter);*/
+    public Recensement(String boulevard, Date recensementDate, int recensementNombre, String recensementPV) {
+        this.boulevard = boulevard;
         this.recensementDate = recensementDate;
         this.recensementNombre = recensementNombre;
-        this.recensementPV = recencementPV;
+        this.recensementPV = recensementPV;
     }
+
 
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Recensement that = (Recensement) o;
-        return recensementNombre == that.recensementNombre && recensementId.equals(that.recensementId) && recensementDate.equals(that.recensementDate) && Objects.equals(recensementPV, that.recensementPV);
+        return recensementNombre == that.recensementNombre && boulevard == that.boulevard && recensementId.equals(that.recensementId) && recensementDate.equals(that.recensementDate) && Objects.equals(recensementPV, that.recensementPV);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(recensementId, recensementDate, recensementNombre, recensementPV);
+        return Objects.hash(recensementId,boulevard, recensementDate, recensementNombre, recensementPV);
     }
 
     @Override
     public String toString() {
         return "Recensement{" +
                 "recencementId=" + recensementId +
+                ", boulevard=" + boulevard +
                 ", recensementDate=" + recensementDate +
                 ", recensementNombre=" + recensementNombre +
                 ", recencementPV='" + recensementPV + '\'' +

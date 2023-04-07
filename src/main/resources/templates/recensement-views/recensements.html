@@ -6,14 +6,19 @@
 <body>
 <div layout:fragment="content1">
     <div class="container mt-3">
+        <div class="mb-3 mw-15">
+            <a class="btn btn-primary"
+               th:href="@{/recensements/formCreate}">Ajouter</a>
+        </div>
         <div class="card">
             <div class="card-header">Liste des Recensement</div>
             <div class="card-body">
 
                 <table class="table">
-                    <thead>
+                    <thead class="dark">
                     <tr class="text-center">
                         <th>Recensement ID</th>
+                        <th>Boulevard</th>
                         <th>Date</th>
                         <th>Nombre recensé</th>
                         <th>Procès Verbal</th>
@@ -24,16 +29,17 @@
                     <tbody>
                     <tr class="text-center" th:each="recensement:${listRecensements}">
                         <td th:text="${recensement.recensementId}"></td>
-                        <td th:text="${recensement.recensementDate}"></td>
+                        <td th:text="${recensement.boulevard}"></td>
+                        <td th:text="${#dates.format(recensement.recensementDate, 'yyyy-MM-dd')}"></td>
                         <td th:text="${recensement.recensementNombre}"></td>
                         <td>
-                                <a th:href="@{/recensements/download/{id}/{fileName}(id=${recensement.recensementId},fileName=${recensement.recensementPV})}" th:text ="${recensement.recensementPV}" > </a>
+                                <a th:href="@{/recensements/download/{id}/{fileName}(id=${recensement.recensementId},fileName=${recensement.recensementPV})}" th:text ="${recensement.recensementPV}" target="_blank"> </a>
                         </td>
                         <td>
                             <a class="btn btn-success"
-                               th:href="@{/recensements/formUpdate(recensementId=${recensement.recensementId})}">Update</a>
+                               th:href="@{/recensements/formUpdate(recensementId=${recensement.recensementId})}">Modifier</a>
                             <a class="btn btn-danger" onclick="return confirm('Are you sure')"
-                               th:href="@{/recensements/delete(recensementId=${recensement.recensementId})}">Delete</a>
+                               th:href="@{/recensements/delete(recensementId=${recensement.recensementId})}">Supprimer</a>
 
                         </td>
                     </tr>

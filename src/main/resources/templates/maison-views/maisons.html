@@ -6,6 +6,10 @@
 <body>
 <div layout:fragment="content1">
     <div class="container mt-3">
+        <div class="mb-3 mw-15">
+            <a class="btn btn-primary"
+               th:href="@{/maisons/formCreate}">Ajouter</a>
+        </div>
         <div class="card">
             <div class="card-header">Liste des maison</div>
             <div class="card-body">
@@ -15,7 +19,6 @@
                     <tr class="text-center">
                         <th>maison ID</th>
                         <th>Proprietaire</th>
-                        <th>Boulevard</th>
                         <th>Adresse</th>
                         <th>Nombre Famille</th>
 
@@ -25,15 +28,14 @@
                     <tr class="text-center" th:each="maison:${listMaisons}">
                         <td th:text="${maison.maisonID}"></td>
                         <td th:text="${maison.proprietaire}"></td>
-                        <td th:text="${maison.boulevard}"></td>
-                        <td th:text="Rue+' '+${maison.maisonRue}+' '+ ${maison.maisonNumero}"></td>
+                        <td th:text="${maison.recensement.boulevard}+' '+Rue+' '+${maison.maisonRue}+' '+ ${maison.maisonNumero}"></td>
                         <td th:text="${maison.nombreFamille}"></td>
                         <td>
-                            <a class="btn btn-danger" onclick="return confirm('Are you sure')"
-                               th:href="@{/maison/delete(maisonID=${maison.maisonID}, keyword=${keyword})}">Delete</a>
-
                             <a class="btn btn-success"
-                               th:href="@{/maison/formUpdate(maisonID=${maison.maisonID})}">Update</a>
+                               th:href="@{/maisons/formUpdate(maisonID=${maison.maisonID})}">Modifier</a>
+                            <a class="btn btn-danger" onclick="return confirm('Are you sure')"
+                               th:href="@{/maisons/delete(maisonID=${maison.maisonID})}">Supprimer</a>
+
                         </td>
                     </tr>
                     </tbody>

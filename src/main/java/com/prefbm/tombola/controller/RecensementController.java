@@ -29,8 +29,6 @@ public class RecensementController {
 
     @Autowired
     RecensementService recensementService;
-    @Autowired
-    private RecensementRepository recensementRepository;
 
     @GetMapping("/index")
     public String recensements(Model model){
@@ -110,7 +108,7 @@ public class RecensementController {
 
         }
 
-        recensementRepository.save(existingRecensement);
+        recensementService.save(existingRecensement);
         return "redirect:/recensements/index";
     }
 

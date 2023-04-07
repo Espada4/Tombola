@@ -15,8 +15,8 @@ public class RecensementService {
     RecensementRepository recensementRepository;
 
 
-    public Recensement findById(Long RecensementId) {
-        return recensementRepository.findById(RecensementId).orElseThrow(() -> new EntityNotFoundException("Recensement with id" + RecensementId + " Not Found"));
+    public Recensement findById(Long recensementId) {
+        return recensementRepository.findById(recensementId).orElseThrow(() -> new EntityNotFoundException("Recensement with id" + recensementId + " Not Found"));
     }
  //Date recensementDate, int recensementNombre, String recencementPV
     public Recensement save(Recensement recensement) {
@@ -28,8 +28,8 @@ public class RecensementService {
         return recensementRepository.findAll();
     }
 
-    public void delete(Long instructorId) {
-        recensementRepository.deleteById(instructorId);
+    public void delete(Long recensementId) {
+        recensementRepository.deleteById(recensementId);
     }
 
 

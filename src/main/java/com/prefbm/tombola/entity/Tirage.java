@@ -3,6 +3,7 @@ package com.prefbm.tombola.entity;
 import jakarta.persistence.*;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import java.util.Date;
 import java.util.HashSet;
@@ -20,6 +21,7 @@ public class Tirage {
     private Long tirageId;
     @Basic
     @Column(name = "date_tirage", nullable = false)
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date dateTirage;
     @Basic
     @Column(name = "nombre_appartement", nullable = true)
@@ -28,7 +30,7 @@ public class Tirage {
     @Column(name = "pv_tirage", nullable = true, length = 40)
     private String pvTirage;
 
-    @OneToMany(mappedBy = "tirage", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "tirage", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private Set<Participation> participations = new HashSet<>();
 
 

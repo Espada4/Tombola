@@ -60,7 +60,7 @@ public class Beneficiaire {
     @JoinColumn(name = "cloture_id",referencedColumnName = "cloture_id",nullable = true)
     private Cloture cloture;
 
-    @OneToMany(mappedBy = "beneficiaire", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "beneficiaire", fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)
     private Set<Participation> participations = new HashSet<>();
 
     public Beneficiaire(String cin,String prenom, String nom, String situationFamiliale, int nombreEnfant, String situationResident, String typeResidence, Maison maison) {

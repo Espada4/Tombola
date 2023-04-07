@@ -6,6 +6,12 @@
 <body>
 <div layout:fragment="content1">
     <div class="container mt-3">
+
+        <div class="mb-3 mw-15">
+            <a class="btn btn-primary"
+               th:href="@{/tirages/formCreate}">Ajouter</a>
+        </div>
+
         <div class="card">
             <div class="card-header">Liste des Tirages</div>
             <div class="card-body">
@@ -24,15 +30,16 @@
                     <tbody>
                     <tr class="text-center" th:each="tirage:${listTirages}">
                         <td th:text="${tirage.tirageId}"></td>
-                        <td th:text="${tirage.dateTirage}"></td>
+                        <td th:text="${#dates.format(tirage.dateTirage, 'yyyy-MM-dd')}"></td>
                         <td th:text="${tirage.nombreAppartement}"></td>
-                        <td th:text="${tirage.pvTirage}?:'a renseigner'"></td>
                         <td>
-                            <a class="btn btn-danger" onclick="return confirm('Are you sure')"
-                               th:href="@{/tirage/delete(tirageId=${tirage.tirageId}, keyword=${keyword})}">Delete</a>
-
+                            <a th:href="@{/tirages/download/{id}/{fileName}(id=${tirage.tirageId},fileName=${tirage.pvTirage})}" th:text ="${tirage.pvTirage}" target="_blank"> </a>
+                        </td>
+                        <td>
                             <a class="btn btn-success"
-                               th:href="@{/tirage/formUpdate(tirageId=${tirage.tirageId})}">Update</a>
+                               th:href="@{/tirages/formUpdate(tirageId=${tirage.tirageId})}">Modifier</a>
+                            <a class="btn btn-danger" onclick="return confirm('Are you sure')"
+                               th:href="@{/tirages/delete(tirageId=${tirage.tirageId})}">Supprimer</a>
                         </td>
 
                     </tr>
