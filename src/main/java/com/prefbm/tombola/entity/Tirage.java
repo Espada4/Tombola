@@ -30,7 +30,7 @@ public class Tirage {
     @Column(name = "pv_tirage", nullable = true, length = 40)
     private String pvTirage;
 
-    @OneToMany(mappedBy = "tirage", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "tirage", fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)
     private Set<Participation> participations = new HashSet<>();
 
 

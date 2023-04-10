@@ -4,6 +4,7 @@ import com.prefbm.tombola.entity.Maison;
 import com.prefbm.tombola.entity.Recensement;
 import com.prefbm.tombola.repository.MaisonRepository;
 import com.prefbm.tombola.service.MaisonService;
+import com.prefbm.tombola.service.RecensementService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -11,6 +12,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Controller
 @RequestMapping("/maisons")
@@ -18,6 +20,8 @@ public class MaisonController {
 
     @Autowired
     MaisonService maisonService;
+    @Autowired
+    RecensementService recensementService;
 
     @GetMapping("/index")
     public String maisons(Model model){
@@ -28,11 +32,14 @@ public class MaisonController {
     @GetMapping(value = "/formCreate")
     public String formMaison(Model model) {
         model.addAttribute("maison", new Maison());
+        model.addAttribute("recensements", recensementService.findAll());
         return "maison-views/formCreate";
     }
 
     @PostMapping(value = "/save")
     public String save(@ModelAttribute("maison") Maison maison){
+        System.out.println("--------------------------------------recensement id is "+ maison.getRecensement().getRecensementId());
+        maison.setRecensement(recensementService.findById(maison.getRecensement().getRecensementId()));
         maisonService.save(maison);
         return "redirect:/maisons/index";
     }
@@ -57,6 +64,13 @@ public class MaisonController {
     public String deleteInstructor(Long maisonID) {
         maisonService.delete(maisonID);
         return "redirect:/maisons/index";
+    }
+
+    @GetMapping(value = "/maisonDetails")
+    public String maisondetails(Model model, Long maisonID) {
+        Maison maison = maisonService.findById(maisonID);
+        model.addAttribute("maison", maison);
+        return "maison-views/maisonDetails";
     }
 
 

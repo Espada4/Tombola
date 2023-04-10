@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="template">
+<head>
+    <title>Maison Détail</title>
+</head>
+<body>
+<div layout:fragment="content1">
+    <div class="container mt-3">
+
+        <div class="card">
+            <div class="card-header">Maison en détail</div>
+            <div class="card-body">
+
+                <table class="table">
+                    <thead>
+                    <tr class="text-center">
+                        <th>maison ID</th>
+                        <th>Proprietaire</th>
+                        <th>Adresse</th>
+                        <th>Nombre Famille</th>
+
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr class="text-center align-middle" th:object="${maison}">
+                        <td th:text="${maison.maisonID}"></td>
+                        <td th:text="${maison.proprietaire}"></td>
+                        <td th:text="${maison.recensement.boulevard}+' '+Rue+' '+${maison.maisonRue}+' '+ ${maison.maisonNumero}"></td>
+                        <td th:text="${maison.nombreFamille}"></td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+            <div class="mb-3 mt-3 mw-15">
+                <a class="btn btn-primary"
+                   th:href="@{/beneficiaires/formCreate(maisonID=${maison.maisonID})}">Ajouter un Beneficiaire</a>
+            </div>
+
+            <div class="card">
+                <div class="card-header">Les beneficiaires</div>
+                <div class="card-body">
+
+                    <table class="table table-striped table-bordered align-middle">
+                        <thead class="table-dark">
+                        <tr class="text-center">
+                            <th>beneficiaire ID</th>
+                            <th>CNIE</th>
+                            <th>Nom</th>
+                            <th>Situation Familiale</th>
+                            <th>Nombre D'enfant</th>
+                            <th>Situation Resident</th>
+                            <th>Action</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr class="text-center align-middle" th:each="beneficiaire:${maison.beneficiaires}">
+                            <td th:text="${beneficiaire.beneficiaireId}"></td>
+                            <td th:text="${beneficiaire.cin}"></td>
+                            <td th:text="${beneficiaire.prenom}+' '+${beneficiaire.nom}"></td>
+                            <td th:text="${beneficiaire.situationFamiliale}"></td>
+                            <td th:text="${beneficiaire.nombreEnfant}"></td>
+                            <td th:text="${beneficiaire.situationResident}"></td>
+                            <td>
+                                <a class="btn btn-success"
+                                   th:href="@{/beneficiaires/formUpdate(beneficiaireId=${beneficiaire.beneficiaireId})}">Modifier</a>
+                                <a class="btn btn-danger" onclick="return confirm('Are you sure')"
+                                   th:href="@{/beneficiaires/delete(beneficiaireId=${beneficiaire.beneficiaireId})}">Supprimer</a>
+                            </td>
+
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+
+
+    </div>
+</div>
+</body>
+</html>

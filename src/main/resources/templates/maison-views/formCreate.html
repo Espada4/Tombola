@@ -7,7 +7,16 @@
 <body>
 <div layout:fragment="content1">
     <div class="col-md-6 offset-3 mt-3">
+
+
         <form class="form-control" th:object = "${maison}" method="POST" th:action="@{/maisons/save}">
+            <div class="mb-3 mt-3">
+                <label  class="form-label">Boulevard </label>
+                <select class="form-control"  id="recensement.recensementId" name="recensement.recensementId" >
+                    <option th:each="recensement,stat : ${recensements}" th:value="${recensement.recensementId}" th:text="${recensement.boulevard+ stat.count}" th:selected="${stat.count}==${stat.size}"></option>
+                </select>
+            </div>
+
             <div class="mb-3 mt-3">
                 <label for="proprietaire" class="form-label">Proprietaire </label>
                 <input id="proprietaire" type="text" name="proprietaire" class="form-control"

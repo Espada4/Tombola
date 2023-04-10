@@ -9,8 +9,10 @@ import org.springframework.lang.Nullable;
 import java.util.List;
 
 public interface BeneficiaireRepository extends JpaRepository<Beneficiaire, Long> {
-    @Query("select b from Beneficiaire b where b.maison.maisonID = :maisonID")
+    @Query("select b from Beneficiaire b where b.maison.maisonID = :maisonID order by b.beneficiaireId")
     List<Beneficiaire> findBeneficiaireByMaisonID(@Param("maisonID") Long maisonID);
+
+
 
     @Nullable
     Beneficiaire findByCinAllIgnoreCase(String cin);

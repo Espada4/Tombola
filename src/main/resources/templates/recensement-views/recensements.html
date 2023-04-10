@@ -27,7 +27,7 @@
                     </tr>
                     </thead>
                     <tbody>
-                    <tr class="text-center" th:each="recensement:${listRecensements}">
+                    <tr class="text-center align-middle" th:each="recensement:${listRecensements}">
                         <td th:text="${recensement.recensementId}"></td>
                         <td th:text="${recensement.boulevard}"></td>
                         <td th:text="${#dates.format(recensement.recensementDate, 'yyyy-MM-dd')}"></td>

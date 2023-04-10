@@ -39,7 +39,7 @@ public class Recensement {
     @Column(name = "recencement_pv", nullable = true, length = 45)
     private String recensementPV;
 
-    @OneToMany(mappedBy = "recensement", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "recensement", fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)
     private Set<Maison> maisons = new HashSet<>();
 
 
