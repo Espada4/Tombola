@@ -31,4 +31,12 @@ public class BeneficiaireService {
         return beneficiaireRepository.findByCinContainsAllIgnoreCase( keyword);
     }
 
+    public List<Beneficiaire> findNextParticipants(){
+        return beneficiaireRepository.findParticipantsNextTirage();
+    }
+
+    public List<Beneficiaire> findByTirageId(Long tirageId){return beneficiaireRepository.findBeneficiaireByTirageId(tirageId);}
+    public List<Beneficiaire> findByNotClosed(){return beneficiaireRepository.FindNonClosed();}
+
+
 }

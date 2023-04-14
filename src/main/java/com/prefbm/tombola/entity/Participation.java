@@ -21,11 +21,11 @@ public class Participation {
     @Column(name = "resultat", nullable = false)
     private boolean resultat;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "tirage_id",referencedColumnName = "tirage_id",nullable = true)
     private Tirage tirage;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "beneficiaire_id",referencedColumnName = "beneficiaire_id",nullable = true)
     private Beneficiaire beneficiaire;
 

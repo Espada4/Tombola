@@ -1,9 +1,14 @@
 package com.prefbm.tombola.controller;
 
+import com.prefbm.tombola.entity.Beneficiaire;
+import com.prefbm.tombola.entity.Participation;
 import com.prefbm.tombola.entity.Tirage;
 import com.prefbm.tombola.entity.Tirage;
+import com.prefbm.tombola.repository.ParticipationRepository;
 import com.prefbm.tombola.repository.TirageRepository;
+import com.prefbm.tombola.service.BeneficiaireService;
 import com.prefbm.tombola.service.TirageService;
+import jakarta.persistence.SecondaryTable;
 import lombok.Getter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.ByteArrayResource;
@@ -22,7 +27,11 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 @Controller
 @RequestMapping("/tirages")
@@ -30,6 +39,10 @@ public class TirageController {
     final String UPLOAD_DIR = System.getProperty("user.dir").replace("\\","/")+"/upload/tirages/";
     @Autowired
     TirageService tirageService;
+    @Autowired
+    BeneficiaireService beneficiaireService;
+    @Autowired
+    ParticipationRepository participationService;
 
     @GetMapping("/index")
     public String tirages(Model model){
@@ -38,8 +51,33 @@ public class TirageController {
         return "tirage-views/tirages";
     }
 
+    @GetMapping(value = "/tirageDetails")
+    public String formDetails(Model model,Long tirageId) {
+        Tirage tirage = tirageService.findById(tirageId);
+        model.addAttribute("tirage", tirage);
+        return "tirage-views/tirageDetails";
+    }
+
+    @PostMapping(value = "/saveDetails")
+    public String saveDetails(@ModelAttribute("tirage") Tirage tirage) {
+        Participation persistedParticipation;
+        for(Participation p:tirage.getParticipations()){
+            persistedParticipation = participationService.findById(p.getParticipationId()).get();
+            persistedParticipation.setResultat(p.isResultat());
+            participationService.save(persistedParticipation);
+        }
+        return "redirect:/tirages/index";
+    }
+
+
+
+
+
     @GetMapping(value = "/formCreate")
     public String formTirage(Model model) {
+        List<Beneficiaire> beneficiaires=beneficiaireService.findNextParticipants();
+        //Map<Beneficiaire,Boolean> tacos = beneficiaires.stream().collect(Collectors.toMap(b->b,b->true));
+        model.addAttribute("beneficiaires",beneficiaires);
         model.addAttribute("tirage", new Tirage());
         return "tirage-views/formCreate";
     }
@@ -59,7 +97,7 @@ public class TirageController {
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
-        return "redirect:/tirages/index";
+        return "redirect:/tirages/tirageDetails?tirageId="+tirage.getTirageId();
     }
 
     @GetMapping("/delete")

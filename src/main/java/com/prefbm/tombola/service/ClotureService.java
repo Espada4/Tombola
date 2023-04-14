@@ -8,6 +8,8 @@ import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 @Transactional
 public class ClotureService {
@@ -17,11 +19,23 @@ public class ClotureService {
     BeneficiaireRepository beneficiaireRepository;
 
     public void save(Cloture cloture){
-        clotureRepository.save(cloture);
         for(Beneficiaire beni : cloture.getBeneficiaires()) {
             Beneficiaire ben = beneficiaireRepository.findById(beni.getBeneficiaireId()).get();
             ben.setCloture(cloture);
             beneficiaireRepository.save(ben);
         }
+        clotureRepository.save(cloture);
+       // System.out.println("-------------------------------------------------------------------------------------------iori-"+this.findById(cloture.getClotureId()).getBeneficiaires());
+
     }
+
+    public Cloture findById(Long id){
+        return clotureRepository.findById(id).get();
+    }
+
+    public List<Cloture> findAll(){
+        return clotureRepository.findAll();
+    }
+
+
 }

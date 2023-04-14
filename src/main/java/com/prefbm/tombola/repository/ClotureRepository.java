@@ -26,5 +26,4 @@ public interface ClotureRepository extends JpaRepository<Cloture, Long> {
             where  beneficiaires.maison.maisonRue = :maisonRue and beneficiaires.maison.maisonNumero = :maisonNumero""")
     List<Cloture> searchClotureByMaison(@Param("maisonRue") int maisonRue, @Param("maisonNumero") int maisonNumero);
 
-
 }

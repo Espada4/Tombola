@@ -2,17 +2,17 @@ package com.prefbm.tombola.entity;
 
 import jakarta.persistence.*;
 import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 import org.springframework.format.annotation.DateTimeFormat;
 
-import java.util.Date;
-import java.util.HashSet;
-import java.util.Objects;
-import java.util.Set;
+import java.util.*;
 
 @Entity
 @Table(name ="tirage")
-@Data
+@Setter
+@Getter
 @NoArgsConstructor
 public class Tirage {
     @Id
@@ -30,8 +30,8 @@ public class Tirage {
     @Column(name = "pv_tirage", nullable = true, length = 40)
     private String pvTirage;
 
-    @OneToMany(mappedBy = "tirage", fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)
-    private Set<Participation> participations = new HashSet<>();
+    @OneToMany(mappedBy = "tirage", fetch = FetchType.EAGER,cascade = CascadeType.REMOVE)
+    private List<Participation> participations = new ArrayList<>();
 
 
     public Tirage(Date dateTirage, int nombreAppartement) {
@@ -44,11 +44,21 @@ public class Tirage {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Tirage tirage = (Tirage) o;
-        return nombreAppartement == tirage.nombreAppartement && Objects.equals(tirageId, tirage.tirageId) && Objects.equals(dateTirage, tirage.dateTirage) && Objects.equals(pvTirage, tirage.pvTirage) && Objects.equals(participations, tirage.participations);
+        return nombreAppartement == tirage.nombreAppartement && Objects.equals(tirageId, tirage.tirageId) && Objects.equals(dateTirage, tirage.dateTirage) && Objects.equals(pvTirage, tirage.pvTirage) ;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(tirageId, dateTirage, nombreAppartement, pvTirage, participations);
+        return Objects.hash(tirageId, dateTirage, nombreAppartement, pvTirage);
+    }
+
+    @Override
+    public String toString() {
+        return "Tirage{" +
+                "tirageId=" + tirageId +
+                ", dateTirage=" + dateTirage +
+                ", nombreAppartement=" + nombreAppartement +
+                ", pvTirage='" + pvTirage + '\'' +
+                '}';
     }
 }

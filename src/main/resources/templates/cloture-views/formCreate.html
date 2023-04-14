@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="template">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.14.0-beta2/css/bootstrap-select.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.14.0-beta2/js/bootstrap-select.min.js"></script>
+    <title>Créer un Cloture</title>
+</head>
+<body>
+<div layout:fragment="content1">
+    <div class="col-md-6 offset-3 mt-3">
+        <form class="form-control" th:object = "${cloture}" method="POST" enctype="multipart/form-data" th:action="@{/clotures/save}">
+
+
+            <div class="mb-3 mt-3">
+                <label for="clotureDate" class="form-label">Date </label>
+                <input id="clotureDate" type="Date" name="clotureDate" class="form-control"
+                       th:field="${cloture.clotureDate}" required>
+            </div>
+
+            <div class="mb-3 mt-3">
+                <label class="form-label">Procès Verbal:</label>
+                <input type="file" name="file" class="form-control">
+            </div>
+
+
+            <div class="mb-3 mt-3" >
+                <select class="selectpicker" th:name="indexes" multiple aria-label="Default select example " data-live-search="true" >
+                    <option th:each="beneficiaire, stat:${beneficiaires}" th:value="${beneficiaire.beneficiaireId}"  th:text="${beneficiaire.prenom}+' '+${beneficiaire.nom}+' '+${beneficiaire.cin}"></option>
+                </select>
+            </div>
+
+            <button type="submit" class="btn btn-primary">Enregister</button>
+        </form>
+    </div>
+
+</div>
+</body>
+</html>

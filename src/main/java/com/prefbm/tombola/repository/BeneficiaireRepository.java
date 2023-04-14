@@ -20,7 +20,7 @@ public interface BeneficiaireRepository extends JpaRepository<Beneficiaire, Long
     @Query("""
             select b from Beneficiaire b inner join b.participations participations
             where participations.tirage.tirageId = :tirageId""")
-    List<Beneficiaire> FindBeneficiaireByTirageId(@Param("tirageId") Long tirageId);
+    List<Beneficiaire> findBeneficiaireByTirageId(@Param("tirageId") Long tirageId);
 
     @Query("""
             select b from Beneficiaire b inner join b.participations participations
@@ -32,10 +32,18 @@ public interface BeneficiaireRepository extends JpaRepository<Beneficiaire, Long
 
     @Query("""
             select b from Beneficiaire b WHERE  NOT EXISTS
-            (select p from Participation p where p.beneficiaire = b AND p.resultat=true)  """)
+            (select p from Participation p where p.beneficiaire = b AND p.resultat=true) order by b.beneficiaireId """)
     List<Beneficiaire> findParticipantsNextTirage();
 
+
+    @Query("select b from Beneficiaire b where b.cloture.clotureId is null order by b.beneficiaireId")
+    List<Beneficiaire> FindNonClosed();
+
+
+
+
     List<Beneficiaire> findByCinContainsAllIgnoreCase(String cin);
+
 
 
 

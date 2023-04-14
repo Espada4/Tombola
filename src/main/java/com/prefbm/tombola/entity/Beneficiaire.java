@@ -5,7 +5,6 @@ import jakarta.persistence.*;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.util.Date;
 import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
@@ -52,6 +51,8 @@ public class Beneficiaire {
     @Column(name = "observations", nullable = true, length = 100)
     private String Observations;
 
+    Boolean resultat=true;
+
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "maison_id",referencedColumnName = "maison_id",nullable = false)
     private Maison maison;
@@ -60,7 +61,7 @@ public class Beneficiaire {
     @JoinColumn(name = "cloture_id",referencedColumnName = "cloture_id",nullable = true)
     private Cloture cloture;
 
-    @OneToMany(mappedBy = "beneficiaire", fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)
+    @OneToMany(mappedBy = "beneficiaire", fetch = FetchType.EAGER, cascade = CascadeType.REMOVE)
     private Set<Participation> participations = new HashSet<>();
 
     public Beneficiaire(String cin,String prenom, String nom, String situationFamiliale, int nombreEnfant, String situationResident, String typeResidence, Maison maison) {
@@ -100,7 +101,6 @@ public class Beneficiaire {
                 ", typeResidence='" + typeResidence + '\'' +
                 ", etage='" + etage + '\'' +
                 ", Observations='" + Observations + '\'' +
-                ", maison=" + maison.getMaisonID() +
                 '}';
     }
 }

@@ -17,9 +17,7 @@ public class TombolaApplication {
 	public static void main(String[] args) throws IOException {
 
 		SpringApplication.run(TombolaApplication.class, args);
-		/*Files.createDirectories(Paths.get(System.getProperty("user.dir"), "upload","recensements"));
-		Files.createDirectories(Paths.get(System.getProperty("user.dir"), "upload","clotures"));
-		Files.createDirectories(Paths.get(System.getProperty("user.dir"), "upload","tirages"));*/
+
 	}
 
 	@Bean

@@ -9,13 +9,10 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 
 import java.time.LocalDate;
-import java.util.Date;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 
-//@Component
+@Component
 public class MyRunner implements CommandLineRunner {
 
     @Autowired
@@ -69,20 +66,21 @@ public class MyRunner implements CommandLineRunner {
         beneficiaireRepository.save(beneficiaire8);
         beneficiaireRepository.save(beneficiaire9);
 
-        Set<Beneficiaire> set1 = new HashSet<>();
+        List<Beneficiaire> set1 = new ArrayList<>();
         set1.add(beneficiaire3);set1.add(beneficiaire2);
         Cloture cloture1 = new Cloture(new Date(),"pvCloture1",set1);
         /*cloture1.getBeneficiaires().add(beneficiaire2);
         cloture1.getBeneficiaires().add(beneficiaire3);*/
 
-        Set<Beneficiaire> set2 = new HashSet<>(); set2.add(beneficiaire1);
+        List<Beneficiaire> set2 = new ArrayList<>(); set2.add(beneficiaire1);
         Cloture cloture2 = new Cloture(new Date(),"pvCloture2",set2);
 
-        Set<Beneficiaire> set3 = new HashSet<>(); set3.add(beneficiaire5);
+        List<Beneficiaire> set3 = new ArrayList<>(); set3.add(beneficiaire5);
         Cloture cloture3 = new Cloture(new Date(),"pvCloture3",set3);
 
 
         clotureService.save(cloture1);
+
 
         clotureService.save(cloture2);
 
@@ -106,6 +104,8 @@ public class MyRunner implements CommandLineRunner {
         Tirage tirage2 = new Tirage(new Date(),2);
         tirageService.save(tirage1);
 
+
+
         Participation p1 = participationRepository.findById(1L).get();
         Participation p2 = participationRepository.findById(2L).get();
         Participation p3 = participationRepository.findById(5L).get();
@@ -117,16 +117,7 @@ public class MyRunner implements CommandLineRunner {
         tirageService.save(tirage2);
 
 
-        System.out.println("-----------------------------------------Par tirage Id------------------------------------");
-        beneficiaires = beneficiaireRepository.findParticipantsNextTirage();
-        System.out.println("---------------------------------------The size is : "+ beneficiaires.size());
-        for(Beneficiaire beneficiaire:beneficiaires) System.out.println(beneficiaire);
 
-        System.out.println("participation b1 :"+participationRepository.participationCountByBeneficiaire(beneficiaire1.getBeneficiaireId()));
-        System.out.println("participation b2 :"+participationRepository.participationCountByBeneficiaire(beneficiaire4.getBeneficiaireId()));
-
-        System.out.println("Tirage 1 :"+participationRepository.numberOfParticipantByTirage(tirage1.getTirageId()));
-        System.out.println("Tirage 2 :"+participationRepository.numberOfParticipantByTirage(tirage2.getTirageId()));
 
     }
 }

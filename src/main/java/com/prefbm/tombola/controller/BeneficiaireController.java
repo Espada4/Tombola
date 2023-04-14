@@ -31,7 +31,7 @@ public class BeneficiaireController {
 
     @GetMapping(value = "/formCreate")
     public String formBeneficiaire(Model model, @RequestParam Long maisonID) {
-        System.out.println("im here--------------------------------------------------------------------------------------------------"+maisonID);
+        System.out.println("im here----------------------------------------------------------------------------------"+maisonID);
         model.addAttribute("beneficiaire", new Beneficiaire());
         model.addAttribute("maisonID",maisonID);
         return "beneficiaire-views/formCreate";

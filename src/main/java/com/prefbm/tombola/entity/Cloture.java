@@ -3,11 +3,9 @@ package com.prefbm.tombola.entity;
 import jakarta.persistence.*;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.format.annotation.DateTimeFormat;
 
-import java.util.Date;
-import java.util.HashSet;
-import java.util.Objects;
-import java.util.Set;
+import java.util.*;
 
 @Entity
 @Table(name ="cloture")
@@ -20,15 +18,17 @@ public class Cloture {
     private Long clotureId;
     @Basic
     @Column(name = "cloture_date", nullable = false)
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date clotureDate;
     @Basic
     @Column(name = "pv_cloture", nullable = false, length = 40)
     private String pvCloture;
 
-    @OneToMany(mappedBy = "cloture", fetch = FetchType.LAZY, cascade = CascadeType.MERGE)
-    private Set<Beneficiaire> beneficiaires = new HashSet<>();
 
-    public Cloture(Date clotureDate, String pvCloture, Set<Beneficiaire> beneficiaires) {
+    @OneToMany(mappedBy = "cloture", fetch = FetchType.EAGER)
+    private List<Beneficiaire> beneficiaires = new ArrayList<>();
+
+    public Cloture(Date clotureDate, String pvCloture, List<Beneficiaire> beneficiaires) {
         this.clotureDate = clotureDate;
         this.pvCloture = pvCloture;
         this.beneficiaires = beneficiaires;
