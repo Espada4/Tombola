@@ -20,39 +20,36 @@ public class Beneficiaire {
     @Column(name = "beneficiaire_id", nullable = false)
     private Long beneficiaireId;
     @Basic
-    @Column(name = "cin", nullable = true, length = 10)
+    @Column(name = "cin", nullable = true, length = 30)
     private String cin;
 
     @Basic
-    @Column(name = "prenom", nullable = false, length = 40)
+    @Column(name = "prenom", nullable = true, length = 40)
     private String prenom;
     @Basic
-    @Column(name = "nom", nullable = false, length = 40)
+    @Column(name = "nom", nullable = true, length = 80)
     private String nom;
     @Basic
-    @Column(name = "situation_familiale", nullable = false, length = 30)
+    @Column(name = "situation_familiale", nullable = true, length = 40)
     private String situationFamiliale;
     @Basic
-    @Column(name = "nombre_enfant", nullable = false)
+    @Column(name = "nombre_enfant", nullable = true)
     private int nombreEnfant;
 
     @Basic
-    @Column(name = "situation_resident", nullable = false, length = 25)
+    @Column(name = "situation_resident", nullable = true, length = 80)
     private String situationResident;
 
     @Basic
-    @Column(name = "type_residence", nullable = true, length = 25)
+    @Column(name = "type_residence", nullable = true, length = 40)
     private String typeResidence;
     @Basic
-    @Column(name = "etage", nullable = true, length = 25)
+    @Column(name = "etage", nullable = true, length = 50)
     private String etage;
 
     @Basic
-    @Column(name = "observations", nullable = true, length = 100)
-    private String Observations;
-
-    Boolean resultat=true;
-
+    @Column(name = "observations", nullable = true, length = 250)
+    private String observations;
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "maison_id",referencedColumnName = "maison_id",nullable = false)
     private Maison maison;
@@ -80,7 +77,7 @@ public class Beneficiaire {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Beneficiaire that = (Beneficiaire) o;
-        return nombreEnfant == that.nombreEnfant && beneficiaireId.equals(that.beneficiaireId) && Objects.equals(cin, that.cin) && prenom.equals(that.prenom) && nom.equals(that.nom) && situationFamiliale.equals(that.situationFamiliale) && situationResident.equals(that.situationResident) && Objects.equals(typeResidence, that.typeResidence) && Objects.equals(etage, that.etage) && Objects.equals(Observations, that.Observations) && maison.equals(that.maison);
+        return nombreEnfant == that.nombreEnfant && beneficiaireId.equals(that.beneficiaireId) && Objects.equals(cin, that.cin) && prenom.equals(that.prenom) && nom.equals(that.nom) && situationFamiliale.equals(that.situationFamiliale) && situationResident.equals(that.situationResident) && Objects.equals(typeResidence, that.typeResidence) && Objects.equals(etage, that.etage) && Objects.equals(observations, that.observations) && maison.equals(that.maison);
     }
 
     @Override
@@ -100,7 +97,7 @@ public class Beneficiaire {
                 ", situationResident='" + situationResident + '\'' +
                 ", typeResidence='" + typeResidence + '\'' +
                 ", etage='" + etage + '\'' +
-                ", Observations='" + Observations + '\'' +
+                ", Observations='" + observations + '\'' +
                 '}';
     }
 }

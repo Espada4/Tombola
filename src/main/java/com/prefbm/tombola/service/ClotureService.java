@@ -25,7 +25,6 @@ public class ClotureService {
             beneficiaireRepository.save(ben);
         }
         clotureRepository.save(cloture);
-       // System.out.println("-------------------------------------------------------------------------------------------iori-"+this.findById(cloture.getClotureId()).getBeneficiaires());
 
     }
 
@@ -35,6 +34,9 @@ public class ClotureService {
 
     public List<Cloture> findAll(){
         return clotureRepository.findAll();
+    }
+    public void delete(Long clotureId){
+        clotureRepository.deleteById(clotureId);
     }
 
 

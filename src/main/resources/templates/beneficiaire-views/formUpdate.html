@@ -2,35 +2,37 @@
 <html lang="en" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="template">
 <head>
     <meta charset="UTF-8">
-    <title>Modifier un Bénéficiaire</title>
+    <title th:text="#{beneficiaire.titreModification}">Modifier un Bénéficiaire</title>
 </head>
 <body>
 <div layout:fragment="content1">
-    <div class="col-md-6 offset-3 mt-3 mb-5">
+    <div class="col-md-6 mx-auto mt-3 mb-5">
         <form class="form-control" th:object = "${beneficiaire}" method="POST" th:action="@{/beneficiaires/update(beneficiaireId=${beneficiaire.beneficiaireId})}">
             <div class="mb-3 mt-3">
-                <label for="cin" class="form-label">CNIE </label>
+                <label for="cin" class="form-label" th:text="#{beneficiaire.CNIE}">CNIE </label>
                 <input id="cin" type="text" name="cin" class="form-control"
                        th:field="${beneficiaire.cin}" required>
             </div>
             <div class="mb-3 mt-3">
-                <label for="prenom" class="form-label">Prénom </label>
+                <label for="prenom" class="form-label" th:text="#{beneficiaire.prenom}">Prénom </label>
                 <input id="prenom" type="text" name="prenom" class="form-control"
                        th:field="${beneficiaire.prenom}" required>
             </div>
             <div class="mb-3 mt-3">
-                <label for="nom" class="form-label">Nom </label>
+                <label for="nom" class="form-label" th:text="#{beneficiaire.nom}">Nom </label>
                 <input id="nom" type="text" name="nom" class="form-control"
                        th:field="${beneficiaire.nom}" required>
             </div>
 
 
             <div class="mb-3 mt-3 form-control">
-                <label class="form-label">Situation Familiale </label>
+                <label class="form-label" th:text="#{beneficiaire.situationFamiliale}">Situation Familiale </label>
                 <div>
                     <div class="btn-group btn-group-toggle  " data-toggle="buttons">
-                        <label class="btn btn-secondary" th:each="status : ${#lists.toList({'célibataire', 'marié', 'veuf'})}">
-                            <input type="radio" th:name="status" th:value="${status}" th:field="${beneficiaire.situationFamiliale}" th:checked="${status ==beneficiaire.situationFamiliale}"> <span th:text="${status}"></span>
+                        <label class="btn ">
+                            <input type="radio" th:name="status" th:value="${#strings.concat('عازب(ة)','')}" th:field="${beneficiaire.situationFamiliale}" th:checked="${beneficiaire.situationFamiliale == 'عازب(ة)'}" > <span th:text="#{beneficiaire.celibataire}"></span>
+                            <input type="radio" th:name="status" th:value="${#strings.concat('متزوج(ة)','')}" th:field="${beneficiaire.situationFamiliale}" th:checked="${beneficiaire.situationFamiliale == 'متزوج(ة)'}" > <span th:text="#{beneficiaire.marie}"></span>
+                            <input type="radio" th:name="status" th:value="${#strings.concat('أرمل(ة)','')}" th:field="${beneficiaire.situationFamiliale}" th:checked="${beneficiaire.situationFamiliale == 'أرمل(ة)'}" > <span th:text="#{beneficiaire.veuf}"></span>
                         </label>
                     </div>
                 </div>
@@ -41,27 +43,27 @@
 
 
             <div class="mb-3 mt-3">
-                <label for="nombreEnfant" class="form-label">Nombre Enfant </label>
+                <label for="nombreEnfant" class="form-label" th:text="#{beneficiaire.nombreEnfant}">Nombre Enfant </label>
                 <input id="nombreEnfant" type="text" name="nombreEnfant" class="form-control"
                        th:field="${beneficiaire.nombreEnfant}" required>
             </div>
             <div class="mb-3 mt-3">
-                <label for="situationResident" class="form-label">Situation Resident </label>
+                <label for="situationResident" class="form-label" th:text="#{beneficiaire.situationResident}">Situation Resident </label>
                 <input id="situationResident" type="text" name="situationResident" class="form-control"
                        th:field="${beneficiaire.situationResident}" required>
             </div>
             <div class="mb-3 mt-3">
-                <label for="typeResidence" class="form-label">Type Residence </label>
+                <label for="typeResidence" class="form-label" th:text="#{beneficiaire.typeResidence}">Type Residence </label>
                 <input id="typeResidence" type="text" name="typeResidence" class="form-control"
                        th:field="${beneficiaire.typeResidence}" required>
             </div>
             <div class="mb-3 mt-3">
-                <label for="etage" class="form-label">Etage </label>
+                <label for="etage" class="form-label" th:text="#{beneficiaire.etage}">Etage </label>
                 <input id="etage" type="text" name="etage" class="form-control"
                        th:field="${beneficiaire.etage}">
             </div>
             <div class="mb-3 mt-3">
-                <label for="Observations" class="form-label">Observations </label>
+                <label for="Observations" class="form-label" th:text="#{beneficiaire.observations}">Observations </label>
                 <textarea id="Observations" name="Observations" class="form-control"
                        th:field="${beneficiaire.Observations}">
                 </textarea>
@@ -69,7 +71,7 @@
 
 
 
-            <button type="submit" class="btn btn-primary">Enregister</button>
+            <button type="submit" class="btn btn-primary" th:text="#{button.update}">Modifier</button>
         </form>
     </div>
 

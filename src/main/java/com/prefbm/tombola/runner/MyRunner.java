@@ -12,7 +12,7 @@ import java.time.LocalDate;
 import java.util.*;
 
 
-@Component
+//@Component
 public class MyRunner implements CommandLineRunner {
 
     @Autowired
@@ -36,11 +36,13 @@ public class MyRunner implements CommandLineRunner {
 
         Recensement recensement = new Recensement("Ghandi",new Date(),45,"pvRecencement1");
         recensementRepository.save(recensement);
-        Maison maison1= new Maison("Wlad lmekki",3,127,3,recensement);
-        Maison maison2= new Maison("waratati",5,245,3,recensement);
-        Maison maison3= new Maison("waratatoh",1,13,3,recensement);
+        Maison maison1= new Maison("Wlad lmekki",3,"127",3,recensement);
+        Maison maison2= new Maison("waratati",5,"245",3,recensement);
+        Maison maison3= new Maison("waratatoh",1,"13",3,recensement);
         recensement.getMaisons().add(maison1);
         //Save maison
+        //maison1.setMaisonID(15L);
+        //maison2.setMaisonID(20L);
         maisonRepository.save(maison1);
         recensement.getMaisons().add(maison2);
         maisonRepository.save(maison2);
@@ -65,6 +67,10 @@ public class MyRunner implements CommandLineRunner {
         beneficiaireRepository.save(beneficiaire7);
         beneficiaireRepository.save(beneficiaire8);
         beneficiaireRepository.save(beneficiaire9);
+        /*for(int i=10;i<100;i++){
+            beneficiaireRepository.save(new Beneficiaire("C"+i+i,"Mohammed"+i,"WeldMo"+i,"veuf",2,"loyé","sta7",maison3));
+
+        }*/
 
         List<Beneficiaire> set1 = new ArrayList<>();
         set1.add(beneficiaire3);set1.add(beneficiaire2);
@@ -75,9 +81,8 @@ public class MyRunner implements CommandLineRunner {
         List<Beneficiaire> set2 = new ArrayList<>(); set2.add(beneficiaire1);
         Cloture cloture2 = new Cloture(new Date(),"pvCloture2",set2);
 
-        List<Beneficiaire> set3 = new ArrayList<>(); set3.add(beneficiaire5);
+        List<Beneficiaire> set3 = new ArrayList<>(); set3.add(beneficiaire8);
         Cloture cloture3 = new Cloture(new Date(),"pvCloture3",set3);
-
 
         clotureService.save(cloture1);
 
@@ -113,8 +118,11 @@ public class MyRunner implements CommandLineRunner {
         p1.setResultat(true); participationRepository.save(p1);
         p2.setResultat(true); participationRepository.save(p2);
         p3.setResultat(true); participationRepository.save(p3);
-
         tirageService.save(tirage2);
+
+
+
+
 
 
 

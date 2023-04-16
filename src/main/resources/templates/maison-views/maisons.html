@@ -1,27 +1,27 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="template">
 <head>
-    <title>Maison</title>
+    <title th:text="#{maison.header}">Maison</title>
 </head>
 <body>
 <div layout:fragment="content1">
     <div class="container mt-3">
         <div class="mb-3 mw-15">
             <a class="btn btn-primary"
-               th:href="@{/maisons/formCreate}">Ajouter</a>
+               th:href="@{/maisons/formCreate}" th:text="#{maison.ajouter}">Ajouter</a>
         </div>
         <div class="card">
-            <div class="card-header">Liste des maison</div>
+            <div class="card-header" th:text="#{maison.list}">Liste des maisons</div>
             <div class="card-body">
 
                 <table class="table">
                     <thead>
                     <tr class="text-center">
-                        <th>maison ID</th>
-                        <th>Proprietaire</th>
-                        <th>Adresse</th>
-                        <th>Nombre Famille</th>
-                        <th>Action</th>
+                        <th th:text="#{maison.id}">ID</th>
+                        <th th:text="#{maison.proprietaire}">Proprietaire</th>
+                        <th th:text="#{maison.adresse}">Adresse</th>
+                        <th th:text="#{maison.nombreFamille}">Nombre Famille</th>
+                        <th th:text="#{maison.action}">Action</th>
 
                     </tr>
                     </thead>
@@ -29,7 +29,9 @@
                     <tr class="text-center align-middle" th:each="maison:${listMaisons}">
                         <td th:text="${maison.maisonID}"></td>
                         <td th:text="${maison.proprietaire}"></td>
-                        <td th:text="${maison.recensement.boulevard}+' '+Rue+' '+${maison.maisonRue}+' '+ ${maison.maisonNumero}"></td>
+                       <!-- <td th:text="${maison.maisonNumero}+' رقم '+${maison.maisonRue}+' زنقة '+${maison.recensement.boulevard}"></td>-->
+                       <!-- <td th:text="${#strings.concat(maison.maisonNumero,' رقم ', maison.maisonRue, ' زنقة ',maison.recensement.boulevard)}"></td>-->
+                        <td th:text="${#strings.concat(maison.recensement.boulevard,' زنقة ',maison.maisonRue,' رقم ',maison.maisonNumero)}"></td>
                         <td th:text="${maison.nombreFamille}"></td>
                         <td>
                             <a  class="btn btn-light btn-link" th:href="@{/maisons/maisonDetails(maisonID=${maison.maisonID})}">

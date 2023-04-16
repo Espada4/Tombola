@@ -15,7 +15,7 @@ import java.util.Set;
 public class Maison {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    //@GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "maison_id", nullable = false)
     private Long maisonID;
     @Basic
@@ -27,11 +27,15 @@ public class Maison {
     private int maisonRue;
     @Basic
     @Column(name = "maison_numero", nullable = false, length = 60)
-    private int maisonNumero;
+    private String maisonNumero;
 
     @Basic
     @Column(name = "nombre_famille", nullable = true, length = 60)
     private int nombreFamille;
+
+    @Basic
+    @Column(name = "observation_maison", nullable = true, length = 250)
+    private String observationMaison ;
 
 
     @ManyToOne(fetch = FetchType.EAGER)
@@ -41,7 +45,7 @@ public class Maison {
     @OneToMany(mappedBy = "maison", fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)
     private Set<Beneficiaire> beneficiaires = new HashSet<>();
 
-    public Maison(String proprietaire, int maisonRue, int maisonNumero, int nombreFamille, Recensement recensement) {
+    public Maison(String proprietaire, int maisonRue, String maisonNumero, int nombreFamille, Recensement recensement) {
         this.proprietaire = proprietaire;
         this.maisonRue = maisonRue;
         this.maisonNumero = maisonNumero;
@@ -70,6 +74,7 @@ public class Maison {
                 ", maisonRue=" + maisonRue +
                 ", maisonNumero=" + maisonNumero +
                 ", recensement=" + recensement +
+                ", observation=" + observationMaison +
                 '}';
     }
 }

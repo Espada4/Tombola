@@ -28,6 +28,9 @@ public class Participation {
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "beneficiaire_id",referencedColumnName = "beneficiaire_id",nullable = true)
     private Beneficiaire beneficiaire;
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "appartement_id",referencedColumnName = "appartement_id",nullable = true)
+    private Appartement appartement;
 
     public Participation(boolean resultat, Tirage tirage, Beneficiaire beneficiaire) {
         this.resultat = resultat;

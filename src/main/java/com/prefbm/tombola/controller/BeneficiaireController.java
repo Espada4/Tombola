@@ -2,7 +2,6 @@ package com.prefbm.tombola.controller;
 
 import com.prefbm.tombola.entity.Beneficiaire;
 import com.prefbm.tombola.entity.Maison;
-import com.prefbm.tombola.repository.BeneficiaireRepository;
 import com.prefbm.tombola.service.BeneficiaireService;
 import com.prefbm.tombola.service.MaisonService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,15 +22,16 @@ public class BeneficiaireController {
     @GetMapping("/index")
     String beneficiaires(Model model, @RequestParam(name = "keyword", defaultValue = "") String keyword){
 
-        List<Beneficiaire> beneficiaires = beneficiaireService.findByCin(keyword);
+        List<Beneficiaire> beneficiaires = beneficiaireService.findAll();
         model.addAttribute("listBeneficiaires", beneficiaires);
         model.addAttribute("keyword", keyword);
         return "beneficiaire-views/beneficiaires";
     }
 
+
+
     @GetMapping(value = "/formCreate")
     public String formBeneficiaire(Model model, @RequestParam Long maisonID) {
-        System.out.println("im here----------------------------------------------------------------------------------"+maisonID);
         model.addAttribute("beneficiaire", new Beneficiaire());
         model.addAttribute("maisonID",maisonID);
         return "beneficiaire-views/formCreate";
@@ -42,6 +42,13 @@ public class BeneficiaireController {
         Beneficiaire beneficiaire = beneficiaireService.findById(beneficiaireId);
         model.addAttribute("beneficiaire", beneficiaire);
         return "beneficiaire-views/formUpdate";
+    }
+
+    @GetMapping("/beneficiaireDetails")
+    public String beneficiaireDetails(Model model,Long beneficiaireId) {
+        Beneficiaire beneficiaire = beneficiaireService.findById(beneficiaireId);
+        model.addAttribute("beneficiaire", beneficiaire);
+        return "beneficiaire-views/beneficiaireDetails";
     }
 
     @PostMapping(value = "/save")
@@ -67,10 +74,10 @@ public class BeneficiaireController {
         existing.setPrenom(beneficiaire.getPrenom());
         existing.setEtage(beneficiaire.getEtage());
         existing.setNombreEnfant(beneficiaire.getNombreEnfant());
-        existing.setSituationFamiliale(existing.getSituationFamiliale());
-        existing.setTypeResidence(existing.getTypeResidence());
-        existing.setSituationResident(existing.getSituationResident());
-        existing.setObservations(existing.getObservations());
+        existing.setSituationFamiliale(beneficiaire.getSituationFamiliale());
+        existing.setTypeResidence(beneficiaire.getTypeResidence());
+        existing.setSituationResident(beneficiaire.getSituationResident());
+        existing.setObservations(beneficiaire.getObservations());
         beneficiaireService.save(existing);
 
         return "redirect:/maisons/maisonDetails?maisonID="+existing.getMaison().getMaisonID();

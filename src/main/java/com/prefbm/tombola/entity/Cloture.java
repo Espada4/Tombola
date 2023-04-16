@@ -6,6 +6,7 @@ import lombok.NoArgsConstructor;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import java.util.*;
+import java.util.stream.Collectors;
 
 @Entity
 @Table(name ="cloture")
@@ -55,5 +56,9 @@ public class Cloture {
                 ", pvCloture='" + pvCloture + '\'' +
                 ", beneficiaires=" + beneficiaires +
                 '}';
+    }
+
+    public List<Beneficiaire> getBeneficiaires() {
+        return beneficiaires.stream().distinct().collect(Collectors.toList());
     }
 }

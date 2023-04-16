@@ -5,6 +5,9 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.DependsOn;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
+import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
+import org.springframework.web.servlet.i18n.LocaleChangeInterceptor;
 
 import javax.sql.DataSource;
 import java.io.IOException;
@@ -12,13 +15,15 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 
 @SpringBootApplication
-public class TombolaApplication {
+public class TombolaApplication implements WebMvcConfigurer {
 
 	public static void main(String[] args) throws IOException {
 
 		SpringApplication.run(TombolaApplication.class, args);
 
 	}
+
+
 
 	@Bean
 	@DependsOn("dbInitializer")
@@ -30,5 +35,6 @@ public class TombolaApplication {
 		ds.setPassword("");
 		return ds;
 	}
+
 
 }

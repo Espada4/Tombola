@@ -21,18 +21,21 @@ public class TirageService {
     @Autowired
     TirageRepository tirageRepository;
     @Autowired
+    ClotureService clotureService;
+
+    @Autowired
     ParticipationRepository participationRepository;
     @Autowired
     BeneficiaireRepository beneficiaireRepository;
     public void save(Tirage tirage){
         tirageRepository.save(tirage);
         Participation p;
-        //Tirage tirage1 = tirageRepository.findById(tirage.getTirageId()).get();
-        System.out.println("-----------------------------------------------------------------"+tirage.getTirageId());
+
         for(Beneficiaire b:beneficiaireRepository.findParticipantsNextTirage()){
             p=new Participation(false, tirage, b);
             participationRepository.save(p);
         }
+
     }
 
     public Tirage findById(Long tirageId){

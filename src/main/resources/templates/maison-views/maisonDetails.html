@@ -1,23 +1,23 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="template">
 <head>
-    <title>Maison Détail</title>
+    <title th:text="#{maison.headDetail}">Maison Détail</title>
 </head>
 <body>
 <div layout:fragment="content1">
     <div class="container mt-3">
 
         <div class="card">
-            <div class="card-header">Maison en détail</div>
+            <div class="card-header" th:text="#{maison.titre}">Maison en détail</div>
             <div class="card-body">
 
                 <table class="table">
                     <thead>
                     <tr class="text-center">
-                        <th>maison ID</th>
-                        <th>Proprietaire</th>
-                        <th>Adresse</th>
-                        <th>Nombre Famille</th>
+                        <th th:text="#{maison.id}">maison ID</th>
+                        <th th:text="#{maison.proprietaire}">Proprietaire</th>
+                        <th th:text="#{maison.adresse}">Adresse</th>
+                        <th th:text="#{maison.nombreFamille}">Nombre Famille</th>
 
                     </tr>
                     </thead>
@@ -25,7 +25,7 @@
                     <tr class="text-center align-middle" th:object="${maison}">
                         <td th:text="${maison.maisonID}"></td>
                         <td th:text="${maison.proprietaire}"></td>
-                        <td th:text="${maison.recensement.boulevard}+' '+Rue+' '+${maison.maisonRue}+' '+ ${maison.maisonNumero}"></td>
+                        <td th:text="${#strings.concat(maison.recensement.boulevard,' زنقة ',maison.maisonRue,' رقم ',maison.maisonNumero)}"></td>
                         <td th:text="${maison.nombreFamille}"></td>
                     </tr>
                     </tbody>
@@ -35,23 +35,23 @@
 
             <div class="mb-3 mt-3 mw-15">
                 <a class="btn btn-primary"
-                   th:href="@{/beneficiaires/formCreate(maisonID=${maison.maisonID})}">Ajouter un Beneficiaire</a>
+                   th:href="@{/beneficiaires/formCreate(maisonID=${maison.maisonID})}" th:text="#{maison.ajouterBeneficiaire}">Ajouter un Beneficiaire</a>
             </div>
 
             <div class="card">
-                <div class="card-header">Les beneficiaires</div>
+                <div class="card-header" th:text="#{beneficiaire.header}">Les bénéficiaires</div>
                 <div class="card-body">
 
                     <table class="table table-striped table-bordered align-middle">
                         <thead class="table-dark">
                         <tr class="text-center">
-                            <th>beneficiaire ID</th>
-                            <th>CNIE</th>
-                            <th>Nom</th>
-                            <th>Situation Familiale</th>
-                            <th>Nombre D'enfant</th>
-                            <th>Situation Resident</th>
-                            <th>Action</th>
+                            <th th:text="#{beneficiaire.id}">beneficiaire ID</th>
+                            <th th:text="#{beneficiaire.CNIE}">CNIE</th>
+                            <th th:text="#{beneficiaire.nomComplet}">Nom</th>
+                            <th th:text="#{beneficiaire.situationFamiliale}">Situation Familiale</th>
+                            <th th:text="#{beneficiaire.nombreEnfant}">Nombre D'enfant</th>
+                            <th th:text="#{beneficiaire.situationResident}">Situation Resident</th>
+                            <th th:text="#{action}">Action</th>
                         </tr>
                         </thead>
                         <tbody>

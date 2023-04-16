@@ -56,12 +56,13 @@ public class ClotureController {
                        @RequestParam("indexes") List<Long> indexes) {
 
         String fileName =file.getOriginalFilename();
-        List<Beneficiaire> beneficiaires = cloture.getBeneficiaires();
+        List<Beneficiaire> beneficiaires = new ArrayList<>();
 
         for(Long i:indexes){
             beneficiaires.add(beneficiaireService.findById(i));
         }
         cloture.setPvCloture(fileName);
+        cloture.setBeneficiaires(beneficiaires);
         clotureService.save(cloture);
         String pathSting = UPLOAD_DIR+cloture.getClotureId()+"/"+fileName;
         System.out.println("----------------------------------------------------------------------"+pathSting);
@@ -73,8 +74,7 @@ public class ClotureController {
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
-        //clotureService.save(cloture);
-        System.out.println(cloture.getBeneficiaires());
+        //System.out.println("---------------hell"+clotureService.findById(cloture.getClotureId()).getBeneficiaires());
 
         return "redirect:/clotures/index";
     }
@@ -88,7 +88,7 @@ public class ClotureController {
 
         beneficiaires.addAll(existingBeneficiaires);
         model.addAttribute("cloture", cloture);
-        model.addAttribute("beneficiaires",beneficiaires.stream().distinct().collect(Collectors.toList()));
+        model.addAttribute("beneficiaires",beneficiaires);
         //model.addAttribute()
         return "cloture-views/formUpdate";
     }
@@ -115,24 +115,31 @@ public class ClotureController {
                 beneficiaireService.save(beneficiaire);
             }
         };
+        beneficiaires.clear();
 
-
-        for(Long i:indexes){ beneficiaires.add(beneficiaireService.findById(i)); }
+        for(Long i:indexes){
+            beneficiaires.add(beneficiaireService.findById(i));
+        }
 
         String pathString = UPLOAD_DIR+id.toString()+"/"+existingCloture.getPvCloture();
-        existingCloture.setClotureId(id);
+        //existingCloture.setClotureId(id);
         existingCloture.setClotureDate(cloture.getClotureDate());
+        existingCloture.setBeneficiaires(beneficiaires);
+
+
 
         if(!file.isEmpty()) {
             System.out.println("------------------------------Entring the new realm------------------------------");
             new File(pathString).delete();
             String fileName =file.getOriginalFilename();
+            existingCloture.setPvCloture(fileName);
+
             pathString = UPLOAD_DIR+id+"/"+fileName;
             File fileDir = new File(pathString);
             fileDir.getParentFile().mkdirs();
             Path path = Paths.get(pathString);
 
-            existingCloture.setPvCloture(fileName);
+
             try {
                 //file.transferTo(dest);
                 Files.copy(file.getInputStream(), path, StandardCopyOption.REPLACE_EXISTING);
@@ -142,9 +149,43 @@ public class ClotureController {
             }
 
         }
-
         clotureService.save(existingCloture);
         return "redirect:/clotures/index";
+    }
+    @GetMapping("/delete")
+    public String deleteCloture(Long clotureId) {
+        Cloture cloture = clotureService.findById(clotureId);
+        for(Beneficiaire beneficiaire:cloture.getBeneficiaires()){
+            beneficiaire.setCloture(null);
+            beneficiaireService.save(beneficiaire);
+        }
+        clotureService.delete(clotureId);
+        deleteDirectory(new File(UPLOAD_DIR+clotureId));
+        return "redirect:/clotures/index";
+    }
+
+    public static void deleteDirectory(File directory) {
+
+        // if the file is directory or not
+        if(directory.isDirectory()) {
+            File[] files = directory.listFiles();
+
+            // if the directory contains any file
+            if(files != null) {
+                for(File file : files) {
+
+                    // recursive call if the subdirectory is non-empty
+                    deleteDirectory(file);
+                }
+            }
+        }
+
+        if(directory.delete()) {
+            System.out.println(directory + " is deleted");
+        }
+        else {
+            System.out.println("Directory not deleted");
+        }
     }
 
 
