@@ -93,10 +93,6 @@ public class ExcelRunner implements CommandLineRunner {
 
     }
 
-    public static void main(String[] args) throws IOException {
-
-    }
-
     public void saveBeneficiaires() throws IOException {
         FileInputStream file = new FileInputStream(new File("E://dueh.xlsx"));
         Workbook workbook = new XSSFWorkbook(file);

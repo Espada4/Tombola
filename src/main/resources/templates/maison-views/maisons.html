@@ -2,6 +2,25 @@
 <html lang="en" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="template">
 <head>
     <title th:text="#{maison.header}">Maison</title>
+    <script>
+        $(document).ready( function () {
+        var lang = $('html').attr('lang');
+        if( lang !=='fr' ) {
+        $('#myTable').DataTable( {
+        language: {
+            url : '/DataTables/arab.json'
+        }
+        } );
+        }
+        else
+        $('#myTable').DataTable( {
+            language: {
+                url : '/DataTables/french.json'
+            }} );
+    }
+    );
+
+    </script>
 </head>
 <body>
 <div layout:fragment="content1">
@@ -14,14 +33,14 @@
             <div class="card-header" th:text="#{maison.list}">Liste des maisons</div>
             <div class="card-body">
 
-                <table class="table">
+                <table id="myTable" class="table">
                     <thead>
                     <tr class="text-center">
-                        <th th:text="#{maison.id}">ID</th>
-                        <th th:text="#{maison.proprietaire}">Proprietaire</th>
-                        <th th:text="#{maison.adresse}">Adresse</th>
-                        <th th:text="#{maison.nombreFamille}">Nombre Famille</th>
-                        <th th:text="#{maison.action}">Action</th>
+                        <th th:text="#{maison.id}" class="dt-center">ID</th>
+                        <th th:text="#{maison.proprietaire}" class="dt-center">Proprietaire</th>
+                        <th th:text="#{maison.adresse}" class="dt-center">Adresse</th>
+                        <th th:text="#{maison.nombreFamille}" class="dt-center">Nombre Famille</th>
+                        <th th:text="#{maison.action}" class="dt-center">Action</th>
 
                     </tr>
                     </thead>
