@@ -12,6 +12,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @Controller
 @RequestMapping("appartements")
 
@@ -20,6 +22,15 @@ public class AppartementController {
     AppartementService appartementService;
     @Autowired
     RecensementService recensementService;
+
+
+    @GetMapping("/index")
+    String beneficiaires(Model model, @RequestParam(name = "keyword", defaultValue = "") String keyword){
+
+        List<Appartement> appartements = appartementService.findAll();
+        model.addAttribute("listAppartements", appartements);
+        return "appartement-views/appartements";
+    }
 
     @GetMapping(value = "/formCreate")
     public String formBeneficiaire(Model model, @RequestParam(name = "recensementId", defaultValue = "1")Long recensementId) {

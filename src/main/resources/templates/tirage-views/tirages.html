@@ -9,21 +9,23 @@
 
         <div class="mb-3 mw-15">
             <a class="btn btn-primary"
-               th:href="@{/tirages/formCreate}">Ajouter</a>
+               th:href="@{/tirages/formCreate}" th:text="#{button.add}">Ajouter</a>
         </div>
 
         <div class="card">
-            <div class="card-header">Liste des Tirages</div>
+            <div class="card-header" th:text="#{tirage.list}">Liste des Tirages</div>
             <div class="card-body">
 
                 <table class="table">
                     <thead>
                     <tr class="text-center">
+                        <th th:text="#{id}" class="dt-center">ID</th>
+                        <th th:text="#{date}" class="dt-center">Date</th>
+                        <th th:text="#{nombreBeneficiaires}" class="dt-center">Nombre de bénéficiaires</th>
+                        <th th:text="#{procesVerbal}" class="dt-center">Procès Verbal</th>
+                        <th th:text="#{action}" class="dt-center">Action</th>
 
-                        <th>Tirage ID</th>
-                        <th>Date</th>
-                        <th>Nombre d'appartements</th>
-                        <th>PV</th>
+
 
                     </tr>
                     </thead>
@@ -60,7 +62,11 @@
                         </td>
 
                     </tr>
+                    <tr th:if="${#lists.isEmpty(listTirages)}"  class="text-center align-middle">
+                        <td colspan="5" th:text="#{noResult}" class="text-secondary">The list is empty.</td>
+                    </tr>
                     </tbody>
+
                 </table>
             </div>
         </div>

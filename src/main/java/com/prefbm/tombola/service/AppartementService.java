@@ -20,7 +20,7 @@ public class AppartementService {
     public void save(Appartement appartement){
         appartementRepository.save(appartement);
     }
-    List<Appartement> findAll(){
+    public List<Appartement> findAll(){
         return appartementRepository.findAll();
     }
     public void delete(Long appartementId){

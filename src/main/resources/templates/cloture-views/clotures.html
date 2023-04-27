@@ -66,6 +66,9 @@
                         </td>
 
                     </tr>
+                    <tr th:if="${#lists.isEmpty(listClotures)}"  class="text-center align-middle">
+                        <td colspan="5" th:text="#{noResult}" class="text-secondary">The list is empty.</td>
+                    </tr>
                     </tbody>
                 </table>
             </div>

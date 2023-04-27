@@ -10,6 +10,7 @@ public class MyController {
 
     @GetMapping("/")
     public String home(){
-        return "template";
+        return "redirect:/beneficiaires/index";
+//        return "template";
     }
 }

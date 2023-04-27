@@ -58,7 +58,7 @@
                         <tr class="text-center align-middle" th:each="beneficiaire:${maison.beneficiaires}">
                             <td th:text="${beneficiaire.beneficiaireId}"></td>
                             <td th:text="${beneficiaire.cin}"></td>
-                            <td th:text="${beneficiaire.prenom}+' '+${beneficiaire.nom}"></td>
+                            <td th:text="${beneficiaire.nom}"></td>
                             <td th:text="${beneficiaire.situationFamiliale}"></td>
                             <td th:text="${beneficiaire.nombreEnfant}"></td>
                             <td th:text="${beneficiaire.situationResident}"></td>

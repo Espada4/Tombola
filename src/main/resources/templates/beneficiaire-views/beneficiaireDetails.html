@@ -8,7 +8,7 @@
     <div class="container mt-3">
 
         <div class="card">
-            <div class="card-header" th:text="#{beneficiaire.details}" >Détails du Bénéficiaire</div>
+            <div class="card-header bg-secondary fs-5 fw-bold" th:text="#{beneficiaire.details}" >Détails du Bénéficiaire</div>
             <div class="card-body">
                 <div class="row row-cols-3 ">
                     <div class="col">
@@ -54,7 +54,7 @@
                             <p class="card-text" th:text="${beneficiaire.situationResident}"></p>
                         </div>
 
-                        <div class="d-flex justify-content-between">
+                        <div class="d-flex ">
                             <h6 class="card-title" th:text="#{beneficiaire.observations}">Attribute 8</h6>
                             <p class="card-text" th:text="${beneficiaire.observations}"></p>
                         </div>
@@ -65,9 +65,9 @@
         </div>
 
         <div class="card">
-            <div class="card-header" th:text="#{maison.header}" >Détails du Maison</div>
+            <div class="card-header bg-secondary fs-5 fw-bold" th:text="#{maison.header}" >Détails du Maison</div>
             <div class="card-body">
-                <table class="table">
+                <table class="table table-striped table-bordered align-middle">
                     <thead>
                     <tr class="text-center">
                         <th th:text="#{maison.id}">maison ID</th>
@@ -93,11 +93,11 @@
 
 
         <div class="card">
-            <div class="card-header" th:text="#{beneficiaire.header}">Les bénéficiaires</div>
+            <div class="card-header bg-secondary fs-5 fw-bold" th:text="#{maison.resident}">Les résidents</div>
             <div class="card-body">
 
                 <table class="table table-striped table-bordered align-middle">
-                    <thead class="table-dark">
+                    <thead>
                     <tr class="text-center">
                         <th th:text="#{beneficiaire.id}">beneficiaire ID</th>
                         <th th:text="#{beneficiaire.CNIE}">CNIE</th>
@@ -121,6 +121,27 @@
                 </table>
 
 
+            </div>
+        </div>
+
+
+
+
+        <div th:if="${tirage!=null}" class="card mb-3">
+            <div class="card-header bg-success fs-5 fw-bold" th:text="#{tirage.resultat}">Résultat du tirage</div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-6">
+
+                            <label class="px-5 fs-5" th:text="#{date}">Date</label>
+                            <p class="d-inline" th:text="${#dates.format(tirage.dateTirage, 'yyyy-MM-dd')}"></p>
+
+                    </div>
+                    <div class="col-6">
+                        <label class="px-5 fs-5" th:text="#{procesVerbal}">Procès Verbal</label>
+                        <a th:href="@{/tirages/download/{id}/{fileName}(id=${tirage.tirageId},fileName=${tirage.pvTirage})}" th:text ="${tirage.pvTirage}" target="_blank"> </a>
+                    </div>
+                </div>
             </div>
         </div>
 

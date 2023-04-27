@@ -2,6 +2,8 @@ package com.prefbm.tombola.controller;
 
 import com.prefbm.tombola.entity.Beneficiaire;
 import com.prefbm.tombola.entity.Maison;
+import com.prefbm.tombola.entity.Participation;
+import com.prefbm.tombola.entity.Tirage;
 import com.prefbm.tombola.service.BeneficiaireService;
 import com.prefbm.tombola.service.MaisonService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -47,6 +49,11 @@ public class BeneficiaireController {
     @GetMapping("/beneficiaireDetails")
     public String beneficiaireDetails(Model model,Long beneficiaireId) {
         Beneficiaire beneficiaire = beneficiaireService.findById(beneficiaireId);
+        Tirage tirage=null;
+        for(Participation p:beneficiaire.getParticipations()){
+            if(p.isResultat()) {tirage = p.getTirage();break;}
+        }
+        model.addAttribute("tirage",tirage);
         model.addAttribute("beneficiaire", beneficiaire);
         return "beneficiaire-views/beneficiaireDetails";
     }
