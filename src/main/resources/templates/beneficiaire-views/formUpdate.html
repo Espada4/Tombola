@@ -11,13 +11,13 @@
             <div class="mb-3 mt-3">
                 <label for="cin" class="form-label" th:text="#{beneficiaire.CNIE}">CNIE </label>
                 <input id="cin" type="text" name="cin" class="form-control"
-                       th:field="${beneficiaire.cin}" required>
+                       th:field="${beneficiaire.cin}" >
             </div>
-            <div class="mb-3 mt-3">
+            <!--<div class="mb-3 mt-3">
                 <label for="prenom" class="form-label" th:text="#{beneficiaire.prenom}">Prénom </label>
                 <input id="prenom" type="text" name="prenom" class="form-control"
-                       th:field="${beneficiaire.prenom}" required>
-            </div>
+                       th:field="${beneficiaire.prenom}" >
+            </div>-->
             <div class="mb-3 mt-3">
                 <label for="nom" class="form-label" th:text="#{beneficiaire.nom}">Nom </label>
                 <input id="nom" type="text" name="nom" class="form-control"
@@ -45,17 +45,17 @@
             <div class="mb-3 mt-3">
                 <label for="nombreEnfant" class="form-label" th:text="#{beneficiaire.nombreEnfant}">Nombre Enfant </label>
                 <input id="nombreEnfant" type="text" name="nombreEnfant" class="form-control"
-                       th:field="${beneficiaire.nombreEnfant}" required>
+                       th:field="${beneficiaire.nombreEnfant}" >
             </div>
             <div class="mb-3 mt-3">
                 <label for="situationResident" class="form-label" th:text="#{beneficiaire.situationResident}">Situation Resident </label>
                 <input id="situationResident" type="text" name="situationResident" class="form-control"
-                       th:field="${beneficiaire.situationResident}" required>
+                       th:field="${beneficiaire.situationResident}" >
             </div>
             <div class="mb-3 mt-3">
                 <label for="typeResidence" class="form-label" th:text="#{beneficiaire.typeResidence}">Type Residence </label>
                 <input id="typeResidence" type="text" name="typeResidence" class="form-control"
-                       th:field="${beneficiaire.typeResidence}" required>
+                       th:field="${beneficiaire.typeResidence}" >
             </div>
             <div class="mb-3 mt-3">
                 <label for="etage" class="form-label" th:text="#{beneficiaire.etage}">Etage </label>
