@@ -9,39 +9,39 @@
     <div class="col-md-6 mx-auto mt-3 mb-5">
         <form class="form-control" th:object = "${appartement}" method="POST" th:action="@{/appartements/save(recensementId=1)}">
             <div class="mb-3 mt-3">
-                <label for="adresse" class="form-label">Adresse </label>
+                <label for="adresse" class="form-label" th:text="#{adresse}">Adresse </label>
                 <input id="adresse" type="text" name="adresse" class="form-control"
                        th:field="${appartement.adresse}" required>
             </div>
             <div class="mb-3 mt-3">
-                <label for="numeroGroupe" class="form-label">Numero de Groupe </label>
+                <label for="numeroGroupe" class="form-label" th:text="#{appartment.groupe}">Numero de Groupe </label>
                 <input id="numeroGroupe" type="text" name="numeroGroupe" class="form-control"
                        th:field="${appartement.numeroGroupe}" required>
             </div>
 
             <div class="mb-3 mt-3">
-                <label for="numeroImmeuble" class="form-label">Numero Immeuble </label>
+                <label for="numeroImmeuble" class="form-label" th:text="#{appartment.numeroImmeuble}">Numero Immeuble </label>
                 <input id="numeroImmeuble" type="text" name="numeroImmeuble" class="form-control"
                        th:field="${appartement.numeroImmeuble}" required>
             </div>
             <div class="mb-3 mt-3">
-                <label for="numeroAppartement" class="form-label">Numero Appartement </label>
+                <label for="numeroAppartement" class="form-label" th:text="#{appartment.numeroAppartement}">Numero Appartement </label>
                 <input id="numeroAppartement" type="text" name="numeroAppartement" class="form-control"
                        th:field="${appartement.numeroAppartement}" required>
             </div>
             <div class="mb-3 mt-3">
-                <label for="etage" class="form-label">Etage </label>
+                <label for="etage" class="form-label" th:text="#{appartment.etage}">Etage </label>
                 <input id="etage" type="text" name="etage" class="form-control"
                        th:field="${appartement.etage}" required>
             </div>
             <div class="mb-3 mt-3">
-                <label for="titreFoncier" class="form-label">Titre Foncier </label>
+                <label for="titreFoncier" class="form-label" th:text="#{appartment.titreFoncier}">Titre Foncier </label>
                 <input id="titreFoncier" type="text" name="titreFoncier" class="form-control"
                        th:field="${appartement.titreFoncier}" required>
             </div>
 
 
-            <button type="submit" class="btn btn-primary">Enregister</button>
+            <button type="submit" class="btn btn-primary" th:text="#{button.save}">Enregister</button>
         </form>
     </div>
 

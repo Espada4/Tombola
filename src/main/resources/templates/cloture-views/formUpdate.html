@@ -27,7 +27,7 @@
             <div class="mb-3 mt-3" >
                 <select class="selectpicker" th:name="indexes" multiple aria-label="Default select example " data-live-search="true" >
                     <option th:each="beneficiaire, stat:${beneficiaires}" th:value="${beneficiaire.beneficiaireId}"
-                            th:text="${beneficiaire.prenom}+' '+${beneficiaire.nom}+' '+${beneficiaire.cin}"
+                            th:text="${beneficiaire.nom}+' '+${beneficiaire.cin}"
                             th:selected="${#lists.contains(cloture.beneficiaires, beneficiaire)}"></option>
                 </select>
             </div>

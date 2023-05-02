@@ -6,6 +6,7 @@ import com.prefbm.tombola.entity.Tirage;
 import com.prefbm.tombola.entity.Tirage;
 import com.prefbm.tombola.repository.ParticipationRepository;
 import com.prefbm.tombola.repository.TirageRepository;
+import com.prefbm.tombola.service.AppartementService;
 import com.prefbm.tombola.service.BeneficiaireService;
 import com.prefbm.tombola.service.TirageService;
 import jakarta.persistence.SecondaryTable;
@@ -43,6 +44,8 @@ public class TirageController {
     BeneficiaireService beneficiaireService;
     @Autowired
     ParticipationRepository participationService;
+    @Autowired
+    AppartementService appartementService;
 
     @GetMapping("/index")
     public String tirages(Model model){
@@ -55,6 +58,7 @@ public class TirageController {
     public String formDetails(Model model,Long tirageId) {
         Tirage tirage = tirageService.findById(tirageId);
         model.addAttribute("tirage", tirage);
+        model.addAttribute("listAppartements",appartementService.findAll());
         return "tirage-views/tirageDetails";
     }
 
@@ -149,7 +153,7 @@ public class TirageController {
         }
 
         tirageService.save(existingTirage);
-        return "redirect:/tirages/index";
+        return "redirect:/tirages/tirageDetails?tirageId="+id;
     }
 
 

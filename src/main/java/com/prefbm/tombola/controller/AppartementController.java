@@ -44,7 +44,7 @@ public class AppartementController {
         Recensement recensement = recensementService.findById(recensementId);
         //appartementService.setRecensement(recensement);
         appartementService.save(appartement);
-        return "redirect:/";
+        return "redirect:/appartements/index";
     }
 
 }
