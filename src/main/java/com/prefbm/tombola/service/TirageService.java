@@ -29,13 +29,10 @@ public class TirageService {
     BeneficiaireRepository beneficiaireRepository;
     public void save(Tirage tirage){
         tirageRepository.save(tirage);
-        Participation p;
 
-        for(Beneficiaire b:beneficiaireRepository.findParticipantsNextTirage()){
-            p=new Participation(false, tirage, b);
-            participationRepository.save(p);
-        }
-
+    }
+    public void update(Tirage tirage){
+        tirageRepository.save(tirage);
     }
 
     public Tirage findById(Long tirageId){

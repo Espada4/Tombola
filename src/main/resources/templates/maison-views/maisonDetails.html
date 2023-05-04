@@ -51,6 +51,7 @@
                             <th th:text="#{beneficiaire.situationFamiliale}">Situation Familiale</th>
                             <th th:text="#{beneficiaire.nombreEnfant}">Nombre D'enfant</th>
                             <th th:text="#{beneficiaire.situationResident}">Situation Resident</th>
+                            <th th:text="#{tirage.resultat}" class="dt-center">date</th>
                             <th th:text="#{action}">Action</th>
                         </tr>
                         </thead>
@@ -62,6 +63,7 @@
                             <td th:text="${beneficiaire.situationFamiliale}"></td>
                             <td th:text="${beneficiaire.nombreEnfant}"></td>
                             <td th:text="${beneficiaire.situationResident}"></td>
+                            <td th:text="${beneficiaire.resultatTirages()}? ${#dates.format(beneficiaire.participation.tirage.dateTirage, 'yyyy-MM-dd')}"></td>
                             <td>
 
                                 <a class="btn btn-link btn-light"

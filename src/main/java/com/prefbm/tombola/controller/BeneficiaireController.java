@@ -50,9 +50,9 @@ public class BeneficiaireController {
     public String beneficiaireDetails(Model model,Long beneficiaireId) {
         Beneficiaire beneficiaire = beneficiaireService.findById(beneficiaireId);
         Tirage tirage=null;
-        for(Participation p:beneficiaire.getParticipations()){
-            if(p.isResultat()) {tirage = p.getTirage();break;}
-        }
+
+            if(beneficiaire.getParticipation()!=null) {tirage = beneficiaire.getParticipation().getTirage();}
+
         model.addAttribute("tirage",tirage);
         model.addAttribute("beneficiaire", beneficiaire);
         return "beneficiaire-views/beneficiaireDetails";

@@ -4,10 +4,10 @@ package com.prefbm.tombola.entity;
 import jakarta.persistence.*;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
 
-import java.util.HashSet;
-import java.util.Objects;
-import java.util.Set;
+import java.util.*;
 
 @Entity
 @Table(name ="beneficiaire")
@@ -58,8 +58,9 @@ public class Beneficiaire {
     @JoinColumn(name = "cloture_id",referencedColumnName = "cloture_id",nullable = true)
     private Cloture cloture;
 
-    @OneToMany(mappedBy = "beneficiaire", fetch = FetchType.EAGER, cascade = CascadeType.REMOVE)
-    private Set<Participation> participations = new HashSet<>();
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "participation_id",referencedColumnName = "participation_id",nullable = true)
+    private Participation participation;
 
     public Beneficiaire(String cin,String prenom, String nom, String situationFamiliale, int nombreEnfant, String situationResident, String typeResidence, Maison maison) {
         this.cin = cin;
@@ -83,6 +84,9 @@ public class Beneficiaire {
     @Override
     public int hashCode() {
         return Objects.hash(beneficiaireId, cin, prenom, nom, situationFamiliale, nombreEnfant, situationResident, typeResidence, etage);
+    }
+    public boolean resultatTirages(){
+        return participation!=null;
     }
 
     @Override

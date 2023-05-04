@@ -5,6 +5,8 @@ import lombok.Data;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import java.util.*;
@@ -20,7 +22,7 @@ public class Tirage {
     @Column(name = "tirage_id", nullable = false)
     private Long tirageId;
     @Basic
-    @Column(name = "date_tirage", nullable = false)
+    @Column(name = "date_tirage", nullable = true)
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date dateTirage;
     @Basic
@@ -31,6 +33,7 @@ public class Tirage {
     private String pvTirage;
 
     @OneToMany(mappedBy = "tirage", fetch = FetchType.EAGER,cascade = CascadeType.REMOVE)
+    @Fetch(value = FetchMode.SUBSELECT)
     private List<Participation> participations = new ArrayList<>();
 
 

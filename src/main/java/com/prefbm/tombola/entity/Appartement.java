@@ -15,7 +15,7 @@ import java.util.Objects;
 @Table(name = "appartement")
 public class Appartement {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    //@GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "appartement_id", nullable = false)
     private Long appartementId;
 

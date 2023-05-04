@@ -2,7 +2,7 @@
 <html lang="en" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="template">
 <head>
     <title th:text="#{beneficiaire.header}">Bénéficiaires</title>
-    <script>
+    <script async >
         $(document).ready( function () {
         var lang = $('html').attr('lang');
         if( lang !=='fr' ) {
@@ -11,7 +11,8 @@
             url : '/DataTables/arab.json'
         },
         "columnDefs": [
-            { "width": "15%", "targets": 6 }
+            { "width": "12%", "targets": 6 },
+            { "width": "15%", "targets": 2 }
           ],
             "iDisplayLength": 25
         } );
@@ -46,9 +47,12 @@
                         <th th:text="#{beneficiaire.id}" class="dt-center">ID</th>
                         <th th:text="#{beneficiaire.CNIE}" class="dt-center">CNIE</th>
                         <th th:text="#{beneficiaire.nomComplet}" class="dt-center">Nom</th>
-                        <th th:text="#{beneficiaire.situationFamiliale}" class="dt-center">Situation Familiale</th>
-                        <th th:text="#{beneficiaire.nombreEnfant}" class="dt-center">Nombre D'enfant</th>
+                        <th th:text="#{adresse}" class="dt-center">adress</th>
+                       <!-- <th th:text="#{beneficiaire.situationFamiliale}" class="dt-center">Situation Familiale</th>
+                        <th th:text="#{beneficiaire.nombreEnfant}" class="dt-center">Nombre D'enfant</th>-->
                         <th th:text="#{beneficiaire.situationResident}" class="dt-center">Situation Resident</th>
+                        <!--<th th:text="#{participation.resultat}" class="dt-center">Resultat</th>-->
+                        <th th:text="#{tirage.resultat}" class="dt-center">date</th>
                         <th th:text="#{beneficiaire.action}" class="dt-center">Action</th>
                     </tr>
                     </thead>
@@ -57,9 +61,13 @@
                         <td th:text="${beneficiaire.beneficiaireId}"></td>
                         <td th:text="${beneficiaire.cin}"></td>
                         <td th:text="${beneficiaire.nom}"></td>
-                        <td th:text="${beneficiaire.situationFamiliale}"></td>
-                        <td th:text="${beneficiaire.nombreEnfant}"></td>
+                        <td th:text="${#strings.concat(beneficiaire.maison.recensement.boulevard,' زنقة ',beneficiaire.maison.maisonRue,' رقم ',beneficiaire.maison.maisonNumero)}"></td>
+                        <!--<td th:text="${beneficiaire.situationFamiliale}"></td>
+                        <td th:text="${beneficiaire.nombreEnfant}"></td>-->
                         <td th:text="${beneficiaire.situationResident}"></td>
+                       <!-- <td th:text="${beneficiaire.participations[__${#lists.size(beneficiaire.participations)-1}__].resultat}?'نعم':'لا'"></td>-->
+                        <td th:text="${beneficiaire.resultatTirages()}? ${#dates.format(beneficiaire.participation.tirage.dateTirage, 'yyyy-MM-dd')}"></td>
+
                         <td>
                             <a  class="btn btn-light btn-link" th:href="@{/beneficiaires/beneficiaireDetails(beneficiaireId=${beneficiaire.beneficiaireId})}">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-info-circle" viewBox="0 0 16 16">

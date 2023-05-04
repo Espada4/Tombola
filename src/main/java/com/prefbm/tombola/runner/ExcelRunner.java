@@ -1,9 +1,7 @@
 package com.prefbm.tombola.runner;
 
 import com.prefbm.tombola.entity.*;
-import com.prefbm.tombola.repository.BeneficiaireRepository;
-import com.prefbm.tombola.repository.ParticipationRepository;
-import com.prefbm.tombola.repository.RecensementRepository;
+import com.prefbm.tombola.repository.*;
 import com.prefbm.tombola.service.ClotureService;
 import com.prefbm.tombola.service.MaisonService;
 import com.prefbm.tombola.service.TirageService;
@@ -16,18 +14,26 @@ import org.springframework.stereotype.Component;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
 
 
-//@Component
+@Component
 public class ExcelRunner implements CommandLineRunner {
 
     @Autowired
     RecensementRepository recensementRepository;
+    @Autowired
+    AppartementRepository appartementRepository;
+
+    @Autowired
+    TirageRepository tirageRepository;
 
     @Autowired
     MaisonService maisonService;
+
     @Autowired
     BeneficiaireRepository beneficiaireRepository;
     @Autowired
@@ -41,8 +47,11 @@ public class ExcelRunner implements CommandLineRunner {
 
     @Override
     public void run(String... args) throws Exception {
+        /*this.saveTirage();
         this.saveMaisons();
         this.saveBeneficiaires();
+        this.saveAppartements();*/
+        //this.saveParticipations();
 
     }
 
@@ -53,10 +62,12 @@ public class ExcelRunner implements CommandLineRunner {
         Date date= c.getTime();
         Recensement recensement = new Recensement("درب خليفة", date, 45, "pvRecencement1");
         recensementRepository.save(recensement);
-        FileInputStream file = new FileInputStream(new File("E://due.xlsx"));
+//        FileInputStream file = new FileInputStream(new File("E:\\Users\\ghass\\OneDrive\\Bureau\\GhassaneApp\\dueh.xlsx"));
+        FileInputStream file = new FileInputStream(new File(System.getProperty("user.dir")+"/dueh.xlsx"));
         Workbook workbook = new XSSFWorkbook(file);
         Maison maison = new Maison();
-        maison.setRecensement(recensement);
+        maison.setRecensement(recensement);//        FileInputStream file = new FileInputStream(new File("E:\\Users\\ghass\\OneDrive\\Bureau\\GhassaneApp\\dueh.xlsx"));
+
 
 
         try {
@@ -94,8 +105,89 @@ public class ExcelRunner implements CommandLineRunner {
 
     }
 
+
+    public void saveAppartements() throws IOException {
+        FileInputStream file = new FileInputStream(new File(System.getProperty("user.dir")+"/dueh.xlsx"));
+        Workbook workbook = new XSSFWorkbook(file);
+        try {
+
+            Sheet sheet = workbook.getSheetAt(3);
+            int i = 1;
+            Row row = sheet.getRow(i);
+            while (row != null) {
+                Appartement appartement = new Appartement();
+                appartement.setAppartementId((long) row.getCell(0).getNumericCellValue());
+                appartement.setAdresse(row.getCell(1).getStringCellValue());
+                appartement.setNumeroGroupe(row.getCell(2).getStringCellValue());
+                appartement.setNumeroImmeuble(row.getCell(3).getStringCellValue());
+                appartement.setEtage(row.getCell(4).getStringCellValue());
+                appartement.setNumeroAppartement((int) row.getCell(5).getNumericCellValue());
+                if(row.getCell(6)!=null)
+                    appartement.setTitreFoncier(row.getCell(6).getStringCellValue());
+                appartementRepository.save(appartement);
+                row = sheet.getRow(i);
+                i++;
+                System.out.println(i);
+            }
+        }
+        finally {
+
+        }
+
+    }
+
+
+    public void saveParticipations() throws IOException {
+        FileInputStream file = new FileInputStream(new File(System.getProperty("user.dir")+"/dueh.xlsx"));
+        Workbook workbook = new XSSFWorkbook(file);
+        List<Beneficiaire> beneficiaires = new ArrayList<>();
+        try {
+
+            Sheet sheet = workbook.getSheetAt(2);
+            int i = 1;
+            Row row = sheet.getRow(i);
+            while (row != null) {
+                Participation participation = new Participation();
+                participation.setResultat(true);
+
+                if(row.getCell(4)!=null)
+                    participation.setTirage(tirageService.findById((long)row.getCell(4).getNumericCellValue()));
+                Beneficiaire beneficiaire = null;
+                if(row.getCell(1)!=null){
+                    System.out.println("im here :"+ row.getCell(1).getNumericCellValue());
+                    if((long)row.getCell(1).getNumericCellValue()!=0){
+                        beneficiaires.clear();
+                        beneficiaire = beneficiaireRepository.findById((long)row.getCell(1).getNumericCellValue()).get();
+                        beneficiaire.setParticipation(participation);
+                        beneficiaires.add(beneficiaire);
+                        participation.setBeneficiaires(beneficiaires);
+
+                    }
+
+                }
+                if(row.getCell(3)!=null)
+                    participation.setAppartement(appartementRepository.findById((long)row.getCell(3).getNumericCellValue()).get());
+                if(row.getCell(2)!=null)
+                    participation.setNum_dossier(""+(long)row.getCell(2).getNumericCellValue());
+
+
+                participationRepository.save(participation);
+                if(beneficiaire!=null)beneficiaireRepository.save(beneficiaire);
+
+
+                row = sheet.getRow(i);
+                i++;
+                System.out.println(i);
+            }
+        }
+        finally {
+
+        }
+
+    }
+
     public void saveBeneficiaires() throws IOException {
-        FileInputStream file = new FileInputStream(new File("E://dueh.xlsx"));
+        FileInputStream file = new FileInputStream(new File(System.getProperty("user.dir")+"/dueh.xlsx"));
         Workbook workbook = new XSSFWorkbook(file);
         Maison maison;
 
@@ -138,6 +230,34 @@ public class ExcelRunner implements CommandLineRunner {
             }
 
 
+        }
+        finally {
+
+        }
+
+    }
+
+
+    public void saveTirage() throws IOException {
+        FileInputStream file = new FileInputStream(new File(System.getProperty("user.dir")+"/dueh.xlsx"));
+        Workbook workbook = new XSSFWorkbook(file);
+
+        try {
+            Sheet sheet = workbook.getSheetAt(4);
+            int i = 1;
+            Row row = sheet.getRow(i);
+            while (row != null) {
+                Tirage tirage = new Tirage();
+                if(row.getCell(1)!=null)
+                    tirage.setNombreAppartement((int) row.getCell(1).getNumericCellValue());
+
+                if(row.getCell(2)!=null)
+                    tirage.setDateTirage(row.getCell(2).getDateCellValue());
+                tirageRepository.save(tirage);
+                i++;
+                row = sheet.getRow(i);
+                System.out.println(i);
+            }
         }
         finally {
 

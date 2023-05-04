@@ -28,10 +28,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Controller
@@ -58,7 +55,11 @@ public class TirageController {
     public String formDetails(Model model,Long tirageId) {
         Tirage tirage = tirageService.findById(tirageId);
         model.addAttribute("tirage", tirage);
-        model.addAttribute("listAppartements",appartementService.findAll());
+        /*List<Beneficiaire> beneficiaires = new ArrayList<>();
+        for(Participation participation:tirage.getParticipations()){
+            for(Beneficiaire b:participation.getBeneficiaires()) beneficiaires.add(b);
+        }
+        model.addAttribute("beneficiaires", beneficiaires);*/
         return "tirage-views/tirageDetails";
     }
 
@@ -79,9 +80,9 @@ public class TirageController {
 
     @GetMapping(value = "/formCreate")
     public String formTirage(Model model) {
-        List<Beneficiaire> beneficiaires=beneficiaireService.findNextParticipants();
+       /* List<Beneficiaire> beneficiaires=beneficiaireService.findNextParticipants();
         //Map<Beneficiaire,Boolean> tacos = beneficiaires.stream().collect(Collectors.toMap(b->b,b->true));
-        model.addAttribute("beneficiaires",beneficiaires);
+        model.addAttribute("beneficiaires",beneficiaires);*/
         model.addAttribute("tirage", new Tirage());
         return "tirage-views/formCreate";
     }
@@ -152,7 +153,7 @@ public class TirageController {
 
         }
 
-        tirageService.save(existingTirage);
+        tirageService.update(existingTirage);
         return "redirect:/tirages/tirageDetails?tirageId="+id;
     }
 

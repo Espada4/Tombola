@@ -7,6 +7,7 @@ import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -31,9 +32,10 @@ public class BeneficiaireService {
         return beneficiaireRepository.findByCinContainsAllIgnoreCase( keyword);
     }
 
-    public List<Beneficiaire> findNextParticipants(){
-        return beneficiaireRepository.findParticipantsNextTirage();
-    }
+    /*public List<Beneficiaire> findNextParticipants(){
+        //return beneficiaireRepository.findParticipantsNextTirage();
+        return new ArrayList<Beneficiaire>();
+    }*/
 
     public List<Beneficiaire> findByTirageId(Long tirageId){return beneficiaireRepository.findBeneficiaireByTirageId(tirageId);}
     public List<Beneficiaire> findByNotClosed(){return beneficiaireRepository.FindNonClosed();}

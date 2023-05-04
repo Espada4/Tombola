@@ -45,13 +45,15 @@
                     </tr>
                     </thead>
                     <tbody>
-                    <tr class="text-center align-middle" th:each="maison:${listMaisons}">
+                    <tr class="text-center align-middle" th:each="maison,s:${listMaisons}">
                         <td th:text="${maison.maisonID}"></td>
                         <td th:text="${maison.proprietaire}"></td>
                        <!-- <td th:text="${maison.maisonNumero}+' رقم '+${maison.maisonRue}+' زنقة '+${maison.recensement.boulevard}"></td>-->
                        <!-- <td th:text="${#strings.concat(maison.maisonNumero,' رقم ', maison.maisonRue, ' زنقة ',maison.recensement.boulevard)}"></td>-->
                         <td th:text="${#strings.concat(maison.recensement.boulevard,' زنقة ',maison.maisonRue,' رقم ',maison.maisonNumero)}"></td>
-                        <td th:text="${maison.nombreFamille}"></td>
+                        <td th:text="${stats[__${s.index}__]}"></td>
+                        <!--<td th:text="${maison.nombreFamille}"></td>-->
+
                         <td>
                             <a  class="btn btn-light btn-link" th:href="@{/maisons/maisonDetails(maisonID=${maison.maisonID})}">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-info-circle" viewBox="0 0 16 16">

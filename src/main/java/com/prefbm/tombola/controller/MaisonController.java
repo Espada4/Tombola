@@ -11,6 +11,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -26,6 +27,12 @@ public class MaisonController {
     @GetMapping("/index")
     public String maisons(Model model){
         List<Maison> maisons = maisonService.findAll();
+        List<String> stats = new ArrayList<>();
+        for(Maison m:maisons){
+            //m.getBeneficiaires().stream().filter(b->b.resultatTirages()).count();
+            stats.add(m.getBeneficiaires().stream().map(b->b.getParticipation()).distinct().filter(p->p!=null).count()+"/"+m.getNombreFamille());
+        }
+        model.addAttribute("stats", stats);
         model.addAttribute("listMaisons", maisons);
         return "maison-views/maisons";
     }
